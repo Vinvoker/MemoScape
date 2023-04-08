@@ -4,14 +4,246 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingActivity">
+    android:orientation="vertical"
+    tools:context=".SettingActivity"
+    android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="@string/notif_and_setting_title" />
+        app:title="@string/notification_and_setting_title" />
+
+    <TextView
+        android:id="@+id/notifications_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_notifications"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:textStyle="bold"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/line"/>
+
+    <RelativeLayout
+        android:id="@+id/email_notification_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <TextView
+            android:id="@+id/email_notification_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email_notifications"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/email_notification_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/receive_email_updates"
+            android:layout_below="@id/email_notification_title" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/email_notification_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:trackTint="@color/blue"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:switchMinWidth="56dp"
+            android:padding="16dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/setting_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_settings"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:textStyle="bold"
+        android:textSize="17sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/line"/>
+
+
+    <TextView
+        android:id="@+id/password_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/password"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/change_password_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="5dp"
+        android:includeFontPadding="false"
+        android:text="@string/change_password"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:tint="@color/white"
+        app:backgroundTint="@null"
+        android:background="@drawable/white_button" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/line"/>
+
+    <LinearLayout
+        android:id="@+id/two_fa_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/two_fa_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/two_fa"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/two_fa_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/two_fa_details" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/line"
+        android:src="@drawable/line"/>
+
+    <TextView
+        android:id="@+id/theme_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/theme"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/theme_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="16dp" >
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/radio_system_setting_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/theme_btn_bg_selector"
+                android:button="@null"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/system_setting_theme"
+                android:textColor="@drawable/theme_btn_textcolor_selector" />
+
+            <RadioButton
+                android:id="@+id/radio_light_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/theme_btn_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/light_theme"
+                android:textColor="@drawable/theme_btn_textcolor_selector" />
+
+            <RadioButton
+                android:id="@+id/radio_dark_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/theme_btn_bg_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/dark_theme"
+                android:textColor="@drawable/theme_btn_textcolor_selector" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/line"/>
+
+    <TextView
+        android:id="@+id/danger_zone_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/danger_zone"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/delete_acc_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="7dp"
+        android:paddingHorizontal="5dp"
+        android:includeFontPadding="false"
+        android:text="@string/delete_my_acc"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:tint="@color/white"
+        app:backgroundTint="@null"
+        android:background="@drawable/red_button" />
+
 
 
 </LinearLayout>

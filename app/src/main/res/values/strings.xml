@@ -3,10 +3,10 @@
     <string name="activiy_tv_name">MemoScape Notes App!</string>
 
 <!--    Setting-->
-    <string name="notif_and_setting_title">Notifications &amp; settings</string>
+    <string name="notification_and_setting_title">Notifications &amp; settings</string>
     <string name="my_notifications">My notifications</string>
-    <string name="Email_notifications">Email notifications</string>
-    <string name="Receive_email_updates">Receive email updates</string>
+    <string name="email_notifications">Email notifications</string>
+    <string name="receive_email_updates">Receive email updates</string>
     <string name="my_settings">My settings</string>
     <string name="password">Password</string>
     <string name="change_password">Change Password</string>
@@ -18,5 +18,6 @@
     <string name="dark_theme">Dark</string>
     <string name="danger_zone">Danger Zone</string>
     <string name="delete_my_acc">Delete my account</string>
+    <string name="save">Save</string>
 
 </resources>
