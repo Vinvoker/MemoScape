@@ -25,19 +25,19 @@ class SettingActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.save_setting_menu -> {
                 // Save the settings and finish the activity
                 saveSettings()
                 finish()
-                return true
+                true
             }
             android.R.id.home -> {
                 // Handle the up button by finishing the activity
                 finish()
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
