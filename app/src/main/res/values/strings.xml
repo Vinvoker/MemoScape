@@ -3,7 +3,7 @@
 
     <string name="activiy_tv_name">MemoScape Notes App!</string>
 
-<!--    Setting-->
+    <!--    Setting-->
     <string name="notification_and_setting_title">Notifications &amp; settings</string>
     <string name="my_notifications">My notifications</string>
     <string name="email_notifications">Email notifications</string>
@@ -21,7 +21,19 @@
     <string name="delete_my_acc">Delete my account</string>
     <string name="save">Save</string>
 
+<!--    Change Password-->
+    <string name="old_pass">Old Password</string>
+    <string name="old_pass_placeholder">Enter old password</string>
+    <string name="new_pass">New password</string>
+    <string name="new_pass_placeholder">Enter new password</string>
+    <string name="repeat_pass">Repeat password</string>
+    <string name="repeat_pass_placeholder">Repeat new password</string>
+<!--    PLIS SIAPAPUN YANG KEBAGIAN SIGN UP TOLONG UBAH DESC NYAAA SESUAIN YANG DARI KALIAN SIGN UP NYA GMNA, THANKYOU-->
+    <string name="change_password_desc">Use a password at least 8 character long with both letters and number</string>
+
     <string name="note_title_hint">Title</string>
     <string name="note_content_hint">Enter text here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
