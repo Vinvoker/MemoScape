@@ -1,6 +1,7 @@
 package com.example.memoscape
 
 import android.app.Dialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -69,6 +70,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+//        // Buat cek UI Activity lain ygyyyy
+//        val intent = Intent(this@MainActivity, SettingActivity::class.java) // ubah ke nama file Activity masing"
+//        startActivity(intent)
 
         // Create some sample notes
         val note1 = Note("Note 1", "This is the content of note 1")

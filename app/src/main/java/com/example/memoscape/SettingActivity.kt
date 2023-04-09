@@ -14,6 +14,8 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
+        supportActionBar?.hide()
+
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
