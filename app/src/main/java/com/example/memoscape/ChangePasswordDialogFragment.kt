@@ -76,30 +76,39 @@ class ChangePasswordDialogFragment : DialogFragment() {
             // Cek apakah ada field yang kosong
             if(oldPassword.isEmpty()) {
                 isEmptyFields = true
-                oldPasswordEdt.error = "Field ini tidak boleh kosong"
+                oldPasswordEdt.error = "This field cannot be empty"
             }
 
             if(newPassword.isEmpty()) {
                 isEmptyFields = true
-                newPasswordEdt.error = "Field ini tidak boleh kosong"
+                newPasswordEdt.error = "This field cannot be empty"
             }
 
             if(repeatPassword.isEmpty()) {
                 isEmptyFields = true
-                repeatPasswordEdt.error = "Field ini tidak boleh kosong"
+                repeatPasswordEdt.error = "This field cannot be empty"
             }
 
             // Jika semua field sudah diisi
             if(!isEmptyFields) {
 
+                // !!!!!!!!! connect with db
+//                val db = MyDatabaseHelper(context)
+//                val email = getterEmail
 
-                // Cek apakah new password = repeat password
+                // Cek if old password correct
+//                val sqlGetOldPassword = "SELECT password FROM Users WHERE email='$email'"
+//                val real_old_password = db.executeNonQuery(sqlGetOldPassword)
+//                if(real_old_password != oldPassword) {
+//                    Toast.makeText(context, "Old password wrong", Toast.LENGTH_SHORT).show()
+//                }
+
+                // Cek if new password = repeat password
                 if (newPassword == repeatPassword) {
 
-                    // !!!!!!!!! connect with db
-//                    val db = MyDatabaseHelper(context)
 
-//                    val success = db.updatePassword(oldPassword, newPassword)
+//                    val sqlUpdatePassword = "UPDATE users SET password='$newPassword' FROM Users WHERE email='$email' AND password='$oldPassword'"
+//                    val success = db.executeNonQuery(sqlUpdatePassword)
 
                     // FOR NOW ONLY
                     val success = true

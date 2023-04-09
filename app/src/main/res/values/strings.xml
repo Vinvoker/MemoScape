@@ -21,17 +21,23 @@
     <string name="delete_my_acc">Delete my account</string>
     <string name="save">Save</string>
 
-<!--    Change Password-->
+    <!--    Change Password-->
     <string name="old_pass">Old Password</string>
     <string name="old_pass_placeholder">Enter old password</string>
     <string name="new_pass">New password</string>
     <string name="new_pass_placeholder">Enter new password</string>
     <string name="repeat_pass">Repeat password</string>
     <string name="repeat_pass_placeholder">Repeat new password</string>
-<!--    PLIS SIAPAPUN YANG KEBAGIAN SIGN UP TOLONG UBAH DESC NYAAA SESUAIN YANG DARI KALIAN SIGN UP NYA GMNA, THANKYOU-->
+    <!--    PLIS SIAPAPUN YANG KEBAGIAN SIGN UP TOLONG UBAH DESC NYAAA SESUAIN YANG DARI KALIAN SIGN UP NYA GMNA, THANKYOU-->
     <string name="change_password_desc">Use a password at least 8 character long with both letters and number</string>
     <string name="cancel">cancel</string>
     <string name="ok">ok</string>
+    
+<!--    Delete My Account-->
+    <string name="account_deletion_desc">We are sorry to see go. Once your account is deleted, all of your information will be removed from our database. This cannot be undone.</string>
+    <string name="account_deletion_confirm">To confirm this, type "DELETE"</string>
+    <string name="delete">DELETE</string>
+
 
     <string name="note_title_hint">Title</string>
     <string name="note_content_hint">Enter text here</string>
