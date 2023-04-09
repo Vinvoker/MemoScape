@@ -3,6 +3,7 @@ package com.example.memoscape
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,15 +27,19 @@ import androidx.fragment.app.DialogFragment.STYLE_NORMAL
  */
 class ChangePasswordDialogFragment : DialogFragment() {
 
-    private lateinit var listener: ChangePasswordDialogListener
-
     private lateinit var oldPasswordEdt: EditText
     private lateinit var newPasswordEdt: EditText
     private lateinit var repeatPasswordEdt: EditText
     private lateinit var changePasswordBtn: Button
 
-    internal interface ChangePasswordDialogListener {
-        fun onChangePasswordDialogPositiveClick(oldPassword: String, newPassword: String)
+    interface OnPasswordChangedListener {
+        fun onPasswordChanged(newPassword: String)
+    }
+
+    private lateinit var listener: OnPasswordChangedListener
+
+    fun setOnPasswordChangedListener(listener: OnPasswordChangedListener) {
+        this.listener = listener
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -44,7 +49,15 @@ class ChangePasswordDialogFragment : DialogFragment() {
         val builder = AlertDialog.Builder(context)
         builder.setView(view)
             .setTitle(R.string.change_password)
-        return builder.create()
+            .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+                dialog.cancel()
+            }
+        return builder.create().apply {
+            setCanceledOnTouchOutside(false)
+            setOnShowListener {
+                getButton(DialogInterface.BUTTON_POSITIVE).visibility = View.GONE
+            }
+        }
     }
 
     private fun initView(view: View) {
@@ -57,23 +70,70 @@ class ChangePasswordDialogFragment : DialogFragment() {
             val oldPassword = oldPasswordEdt.text.toString()
             val newPassword = newPasswordEdt.text.toString()
             val repeatPassword = repeatPasswordEdt.text.toString()
-            if (newPassword == repeatPassword) {
-                listener?.onChangePasswordDialogPositiveClick(oldPassword, newPassword)
-                dismiss()
-            } else {
-                Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
+
+            var isEmptyFields = false
+
+            // Cek apakah ada field yang kosong
+            if(oldPassword.isEmpty()) {
+                isEmptyFields = true
+                oldPasswordEdt.error = "Field ini tidak boleh kosong"
             }
+
+            if(newPassword.isEmpty()) {
+                isEmptyFields = true
+                newPasswordEdt.error = "Field ini tidak boleh kosong"
+            }
+
+            if(repeatPassword.isEmpty()) {
+                isEmptyFields = true
+                repeatPasswordEdt.error = "Field ini tidak boleh kosong"
+            }
+
+            // Jika semua field sudah diisi
+            if(!isEmptyFields) {
+
+
+                // Cek apakah new password = repeat password
+                if (newPassword == repeatPassword) {
+
+                    // !!!!!!!!! connect with db
+//                    val db = MyDatabaseHelper(context)
+
+//                    val success = db.updatePassword(oldPassword, newPassword)
+
+                    // FOR NOW ONLY
+                    val success = true
+
+                    if(success) {
+                        Toast.makeText(context, "Passwords changed successfully", Toast.LENGTH_SHORT).show()
+
+                        // Back to Setting UI
+                        dismiss()
+                    }
+
+                } else {
+                    Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+
+
         }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         try {
-            listener = context as ChangePasswordDialogListener
+            listener = context as OnPasswordChangedListener
         } catch (e: ClassCastException) {
             throw ClassCastException("$context must implement ChangePasswordDialogListener")
         }
     }
+
+//    override fun onDetach() {
+//        super.onDetach()
+//        listener = null
+//    }
 
     // TODO: Rename and change types of parameters
 //    private var param1: String? = null

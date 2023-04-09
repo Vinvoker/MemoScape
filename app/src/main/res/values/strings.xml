@@ -30,6 +30,8 @@
     <string name="repeat_pass_placeholder">Repeat new password</string>
 <!--    PLIS SIAPAPUN YANG KEBAGIAN SIGN UP TOLONG UBAH DESC NYAAA SESUAIN YANG DARI KALIAN SIGN UP NYA GMNA, THANKYOU-->
     <string name="change_password_desc">Use a password at least 8 character long with both letters and number</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">ok</string>
 
     <string name="note_title_hint">Title</string>
     <string name="note_content_hint">Enter text here</string>
