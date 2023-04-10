@@ -125,6 +125,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_google"
+            android:fontFamily="@font/balsamiqsans_regular"
             android:drawableLeft="@drawable/google_logo"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
