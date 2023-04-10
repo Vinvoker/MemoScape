@@ -1,37 +1,20 @@
 <resources>
     <string name="app_name">MemoScape</string>
 
-    <string name="activiy_tv_name">MemoScape Notes App!</string>
+    <!--    Login-->
+    <string name="login_welcome">Welcome!</string>
+    <string name="login_continue">Log in to continue</string>
 
-    <!--    Setting-->
-    <string name="notification_and_setting_title">Notifications &amp; settings</string>
-    <string name="my_notifications">My notifications</string>
-    <string name="email_notifications">Email notifications</string>
-    <string name="receive_email_updates">Receive email updates</string>
-    <string name="my_settings">My settings</string>
-    <string name="password">Password</string>
-    <string name="change_password">Change Password</string>
-    <string name="two_fa">Two-factor authentication</string>
-    <string name="two_fa_details">Add extra security to your account</string>
-    <string name="theme">Theme</string>
-    <string name="system_setting_theme">System Setting</string>
-    <string name="light_theme">Light</string>
-    <string name="dark_theme">Dark</string>
-    <string name="danger_zone">Danger Zone</string>
-    <string name="delete_my_acc">Delete my account</string>
-    <string name="save">Save</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
 
-    <string name="note_title_hint">Title</string>
-    <string name="note_content_hint">Enter text here</string>
+    <string name="login_email_hint">Please enter your email</string>
 
-    <string name="sign_up_title">Sign Up</string>
-    <string name="sign_up_subtitle">Please sign up to continue</string>
-    <string name="email">Email</string>
-    <string name="reenter_password">Re-enter Password</string>
-    <string name="or">OR</string>
-    <string name="sign_up_google">Continue with Google</string>
-    <string name="have_an_account">Already have an account?</string>
-    <string name="log_in_here"><u>Log in here!</u>
-    </string>
+    <string name="login_btn_login">LOGIN</string>
 
+    <string name="br_or">OR</string>
+    <string name="login_google">Continue with Google</string>
+
+    <string name="login_no_account">Don't have an account?</string>
+    <string name="login_signup">Sign up today!</string>
 </resources>
