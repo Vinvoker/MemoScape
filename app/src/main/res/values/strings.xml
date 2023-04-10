@@ -1,7 +1,33 @@
 <resources>
     <string name="app_name">MemoScape</string>
 
-    <string name="activiy_tv_name">MemoScape Notes App!</string>
+    <!--    Login-->
+    <string name="login_welcome">Welcome!</string>
+    <string name="login_continue">Log in to continue</string>
+
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+
+    <string name="login_email_hint">Please enter your email</string>
+
+    <string name="login_btn_login">LOGIN</string>
+
+    <string name="br_or">OR</string>
+    <string name="login_google">Continue with Google</string>
+
+    <string name="login_no_account">Don't have an account?</string>
+    <string name="login_signup">Sign up today!</string>
+
+<!--    Sign Up-->
+    <string name="sign_up_title">Sign Up</string>
+    <string name="sign_up_subtitle">Please sign up to continue</string>
+    <string name="email">Email</string>
+    <string name="reenter_password">Re-enter Password</string>
+    <string name="or">OR</string>
+    <string name="sign_up_google">Continue with Google</string>
+    <string name="have_an_account">Already have an account?</string>
+    <string name="log_in_here"><u>Log in here!</u>
+    </string>
 
     <!--    Setting-->
     <string name="notification_and_setting_title">Notifications &amp; settings</string>
@@ -32,7 +58,7 @@
     <string name="change_password_desc">Use a password at least 8 character long with both letters and number</string>
     <string name="cancel">cancel</string>
     <string name="ok">ok</string>
-    
+
 <!--    Delete My Account-->
     <string name="account_deletion_desc">We are sorry to see go. Once your account is deleted, all of your information will be removed from our database. This cannot be undone.</string>
     <string name="account_deletion_confirm">To confirm this, type "DELETE"</string>

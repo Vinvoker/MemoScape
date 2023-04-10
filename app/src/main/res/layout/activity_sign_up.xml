@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="35dp"
+    android:paddingRight="35dp"
+    tools:context=".SignUpActivity">
+
+
+    <TextView
+        android:id="@+id/sign_up_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="60dp"
+        android:text="@string/sign_up_title"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/sign_up_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up_title"
+        android:paddingTop="10dp"
+        android:text="@string/sign_up_subtitle"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/sign_up_tvemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up_subtitle"
+        android:paddingTop="20dp"
+        android:text="@string/email"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up_tvemail"
+        android:backgroundTint="@color/black"
+        android:inputType="text"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/sign_up_tvpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_email"
+        android:paddingTop="20dp"
+        android:text="@string/password"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up_tvpassword"
+        android:backgroundTint="@color/black"
+        android:inputType="textPassword"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/sign_up_tvpassword2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_password"
+        android:paddingTop="20dp"
+        android:text="@string/reenter_password"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/input_password2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up_tvpassword2"
+        android:backgroundTint="@color/black"
+        android:inputType="textPassword"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_password2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/grey_button"
+        android:text="@string/sign_up_title"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/btn_sign_up"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/grey_line" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_sign_up"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        android:padding="10dp"
+        android:text="@string/or"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_google"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/or"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/white_button"
+        android:text="@string/sign_up_google"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:backgroundTint="@null" />
+
+
+    <TextView
+        android:id="@+id/have_an_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_google"
+        android:layout_marginLeft="50dp"
+        android:paddingTop="20dp"
+        android:text="@string/have_an_account"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/log_in_here"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_google"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/have_an_account"
+        android:paddingTop="20dp"
+        android:text="@string/log_in_here"
+        android:textColor="@color/blue"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
