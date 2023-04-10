@@ -99,30 +99,37 @@ class ChangePasswordDialogFragment : DialogFragment() {
                 // Cek if old password correct
 //                val sqlGetOldPassword = "SELECT password FROM Users WHERE email='$email'"
 //                val real_old_password = db.executeNonQuery(sqlGetOldPassword)
+//
 //                if(real_old_password != oldPassword) {
 //                    Toast.makeText(context, "Old password wrong", Toast.LENGTH_SHORT).show()
-//                }
+//
+//                } else {
 
-                // Cek if new password = repeat password
-                if (newPassword == repeatPassword) {
+                    // Cek if new password = repeat password
+                    if (newPassword == repeatPassword) {
 
 
 //                    val sqlUpdatePassword = "UPDATE users SET password='$newPassword' FROM Users WHERE email='$email' AND password='$oldPassword'"
 //                    val success = db.executeNonQuery(sqlUpdatePassword)
 
-                    // FOR NOW ONLY
-                    val success = true
+                        // FOR NOW ONLY
+                        val success = true
 
-                    if(success) {
-                        Toast.makeText(context, "Passwords changed successfully", Toast.LENGTH_SHORT).show()
+                        if (success) {
+                            Toast.makeText(
+                                context,
+                                "Passwords changed successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
-                        // Back to Setting UI
-                        dismiss()
+                            // Back to Setting UI
+                            dismiss()
+                        }
+
+                    } else {
+                        Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
                     }
-
-                } else {
-                    Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
-                }
+//                }
 
             }
 

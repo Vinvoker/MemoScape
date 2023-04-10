@@ -33,7 +33,7 @@ class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
                 val deleteConfirmText = deleteConfirmEdt.text.toString()
                 val delete = resources.getString(R.string.delete)
 
-                if(delete.isEmpty()) {
+                if(deleteConfirmText.isEmpty()) {
                     deleteConfirmEdt.error = resources.getString(R.string.account_deletion_confirm)
 
                 } else {
@@ -57,19 +57,20 @@ class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
                                 .show()
 
                             // Back to Login Activity
-//                        val intent = Intent(this@DeleteMyAccountActivity, LoginActivity::class.java)
-//                        startActivity(intent)
+                        val intent = Intent(this@DeleteMyAccountActivity, LoginActivity::class.java)
+                        startActivity(intent)
 
                         } else {
-                            Toast.makeText(this, "Text does not match with required word.", Toast.LENGTH_SHORT)
+                            Toast.makeText(this, "Something went wrong with sqlDelAcc", Toast.LENGTH_SHORT)
                                 .show()
                         }
 
 
+                    } else {
+                        Toast.makeText(this, "Text does not match with required word", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
-
-
 
             }
         }

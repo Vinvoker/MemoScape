@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
@@ -15,10 +16,11 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 
 class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswordDialogFragment.OnPasswordChangedListener {
 
-    private lateinit var toolbar: Toolbar
+//    private lateinit var toolbar: Toolbar
     private lateinit var emailUpdateSwitch: SwitchCompat
     private lateinit var changePasswordToDialogBtn: Button
     private lateinit var twoFAlayout: LinearLayout
@@ -32,10 +34,15 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        supportActionBar?.hide()
+//        supportActionBar?.setTitle(resources.getString(R.string.notification_and_setting_title))
 
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        supportActionBar?.apply {
+            setTitle(resources.getString(R.string.notification_and_setting_title))
+            setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@SettingActivity, R.color.light_grey)))
+        }
+
+//        toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
         emailUpdateSwitch = findViewById(R.id.email_notification_switch)
         emailUpdateSwitch.setOnClickListener(this)
@@ -112,7 +119,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                 Log.d("MyTag", "Clicked the 2FA Layout")
             }
             R.id.delete_acc_btn -> {
-                Log.d("MyTag", "Clicked delete my account Button")
                 val intent = Intent(this@SettingActivity, DeleteMyAccountActivity::class.java)
                 startActivity(intent)
             }
