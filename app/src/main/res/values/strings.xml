@@ -15,6 +15,59 @@
     <string name="br_or">OR</string>
     <string name="login_google">Continue with Google</string>
 
-    <string name="login_no_account">Don't have an account?</string>
+    <string name="login_no_account">Don\'t have an account?</string>
     <string name="login_signup">Sign up today!</string>
+
+<!--    Sign Up-->
+    <string name="sign_up_title">Sign Up</string>
+    <string name="sign_up_subtitle">Please sign up to continue</string>
+    <string name="email">Email</string>
+    <string name="reenter_password">Re-enter Password</string>
+    <string name="or">OR</string>
+    <string name="sign_up_google">Continue with Google</string>
+    <string name="have_an_account">Already have an account?</string>
+    <string name="log_in_here"><u>Log in here!</u>
+    </string>
+
+    <!--    Setting-->
+    <string name="notification_and_setting_title">Notifications &amp; settings</string>
+    <string name="my_notifications">My notifications</string>
+    <string name="email_notifications">Email notifications</string>
+    <string name="receive_email_updates">Receive email updates</string>
+    <string name="my_settings">My settings</string>
+    <string name="password">Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="two_fa">Two-factor authentication</string>
+    <string name="two_fa_details">Add extra security to your account</string>
+    <string name="theme">Theme</string>
+    <string name="system_setting_theme">System Setting</string>
+    <string name="light_theme">Light</string>
+    <string name="dark_theme">Dark</string>
+    <string name="danger_zone">Danger Zone</string>
+    <string name="delete_my_acc">Delete my account</string>
+    <string name="save">Save</string>
+
+    <!--    Change Password-->
+    <string name="old_pass">Old Password</string>
+    <string name="old_pass_placeholder">Enter old password</string>
+    <string name="new_pass">New password</string>
+    <string name="new_pass_placeholder">Enter new password</string>
+    <string name="repeat_pass">Repeat password</string>
+    <string name="repeat_pass_placeholder">Repeat new password</string>
+    <!--    PLIS SIAPAPUN YANG KEBAGIAN SIGN UP TOLONG UBAH DESC NYAAA SESUAIN YANG DARI KALIAN SIGN UP NYA GMNA, THANKYOU-->
+    <string name="change_password_desc">Use a password at least 8 character long with both letters and number</string>
+    <string name="cancel">cancel</string>
+    <string name="ok">ok</string>
+
+<!--    Delete My Account-->
+    <string name="account_deletion_desc">We are sorry to see go. Once your account is deleted, all of your information will be removed from our database. This cannot be undone.</string>
+    <string name="account_deletion_confirm">To confirm this, type "DELETE"</string>
+    <string name="delete">DELETE</string>
+
+
+    <string name="note_title_hint">Title</string>
+    <string name="note_content_hint">Enter text here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
