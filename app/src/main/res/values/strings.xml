@@ -15,7 +15,7 @@
     <string name="br_or">OR</string>
     <string name="login_google">Continue with Google</string>
 
-    <string name="login_no_account">Don't have an account?</string>
+    <string name="login_no_account">Don\'t have an account?</string>
     <string name="login_signup">Sign up today!</string>
 
 <!--    Sign Up-->
