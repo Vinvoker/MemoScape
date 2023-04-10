@@ -185,6 +185,7 @@
                 android:checked="true"
                 android:gravity="center"
                 android:padding="5dp"
+                android:minHeight="48dp"
                 android:text="@string/system_setting_theme"
                 android:textColor="@drawable/theme_btn_textcolor_selector" />
 
@@ -197,6 +198,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:padding="5dp"
+                android:minHeight="48dp"
                 android:text="@string/light_theme"
                 android:textColor="@drawable/theme_btn_textcolor_selector" />
 
@@ -209,6 +211,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:padding="5dp"
+                android:minHeight="48dp"
                 android:text="@string/dark_theme"
                 android:textColor="@drawable/theme_btn_textcolor_selector" />
         </RadioGroup>

@@ -12,22 +12,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/delete_my_acc"
-        android:layout_gravity="center"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="17sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/account_deletion_desc"
         android:justificationMode="inter_word"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/type_to_confirm_delete_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/account_deletion_confirm"
-        android:textColor="@color/dark_grey"/>
+        android:textColor="@color/dark_grey"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/delete_confirm_edt"
