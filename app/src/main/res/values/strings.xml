@@ -46,6 +46,8 @@
     <string name="danger_zone">Danger Zone</string>
     <string name="delete_my_acc">Delete my account</string>
     <string name="save">Save</string>
+    <string name="using_memoscape_for_title">I am using MemoScape for</string>
+    <string name="select_a_journey">Select a journey</string>
 
     <!--    Change Password-->
     <string name="old_pass">Old Password</string>

@@ -1,22 +1,21 @@
 package com.example.memoscape
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.*
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.appcompat.widget.SwitchCompat
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswordDialogFragment.OnPasswordChangedListener {
 
@@ -24,10 +23,17 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
     private lateinit var emailUpdateSwitch: SwitchCompat
     private lateinit var changePasswordToDialogBtn: Button
     private lateinit var twoFAlayout: LinearLayout
-    // theme radio button plisss dont forget
+    private lateinit var radioGroupTheme: RadioGroup
     private lateinit var deleteMyAccount: Button
 
-    private val recipients = mutableListOf<String>()
+    private val sharedPref by lazy {
+        getSharedPreferences("email_notification_switch", MODE_PRIVATE)
+    }
+
+//    private lateinit var autoCompleteTV: AutoCompleteTextView
+//    private lateinit var adapterItems: ArrayAdapter<String>
+//
+//    val item = arrayOf("Student", "Teacher", "Personal")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +51,7 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
 //        setSupportActionBar(toolbar)
 
         emailUpdateSwitch = findViewById(R.id.email_notification_switch)
+        emailUpdateSwitch.isChecked = sharedPref.getBoolean("email_update_switch_state", false)
         emailUpdateSwitch.setOnClickListener(this)
 
         changePasswordToDialogBtn = findViewById(R.id.to_change_password_dialog_btn)
@@ -53,11 +60,54 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
         twoFAlayout = findViewById(R.id.two_fa_layout)
         twoFAlayout.setOnClickListener(this)
 
-        // about THEME Radio Group
-
         deleteMyAccount = findViewById(R.id.delete_acc_btn)
         deleteMyAccount.setOnClickListener(this)
 
+        // about THEME Radio Group
+        radioGroupTheme = findViewById(R.id.radio_group_theme)
+        radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_light_system_setting -> {
+                    Log.d("Theme", "Clicked SYSTEM SETTING Theme")
+
+//                    lifecycleScope.launch(Dispatchers.Default) {
+//                        // Perform long-running operation here
+//                        runOnUiThread {
+                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+//                        }
+//                    }
+                }
+                R.id.radio_light_theme -> {
+                    Log.d("Theme", "Clicked LIGHT Theme")
+
+//                    lifecycleScope.launch(Dispatchers.Default) {
+//                        // Perform long-running operation here
+//                        runOnUiThread {
+                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+//                        }
+//                    }
+                }
+                R.id.radio_dark_theme -> {
+                    Log.d("Theme", "Clicked DARK Theme")
+
+//                    lifecycleScope.launch(Dispatchers.Default) {
+//                        // Perform long-running operation here
+//                        runOnUiThread {
+                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+//                        }
+//                    }
+                }
+            }
+        }
+
+
+//        autoCompleteTV = findViewById(R.id.auto_complete_txt)
+//        adapterItems = ArrayAdapter(this@SettingActivity, R.layout.memoscape_for_list_item, item)
+//        autoCompleteTV.setAdapter(adapterItems)
+//        autoCompleteTV.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+//            val selectedItem = adapterView.getItemAtPosition(i).toString()
+//            Toast.makeText(this, "Item: $selectedItem", Toast.LENGTH_SHORT).show()
+//        }
 
     }
 
@@ -93,23 +143,40 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                 val switch = v as SwitchCompat
                 val isChecked = switch.isChecked
 
+                val emailSender = EmailSender()
+
                 // Perform necessary actions based on the switch state
                 if (isChecked) {
                     // Handle switch on
-                    Log.d("MyTag","Switch is ON")
+                    Log.d("Switcher","Switch is ON")
 
                     // The real code
 //                    recipients.add(User.email)
-                    recipients.add("recipient1@example.com")
+                    emailSender.addRecipient("recipient1@example.com")
+
+                    // Pengecekan
+                    val recipients =  emailSender.getAllRecipients().toString()
+                    Log.d("Recipients +", recipients)
 
                 } else {
                     // Handle switch off
-                    Log.d("MyTag","Switch is OFF")
+                    Log.d("Switcher","Switch is OFF")
 
                     // The real code
 //                    recipients.remove(User.email)
-                    recipients.remove("recipient1@example.com")
+                    emailSender.removeRecipient("recipient1@example.com")
+
+                    // Pengecekan
+                    val recipients =  emailSender.getAllRecipients().toString()
+                    Log.d("Recipients +", recipients)
+
                 }
+
+                // Save the state of the switch
+                val preferences = getSharedPreferences("email_notification_switch", MODE_PRIVATE)
+                val editor = preferences.edit()
+                editor.putBoolean("email_notification", isChecked)
+                editor.apply()
             }
             R.id.to_change_password_dialog_btn -> {
                 val dialog = ChangePasswordDialogFragment()
@@ -123,15 +190,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                 startActivity(intent)
             }
         }
-
-//        // Pass the updated list of recipient emails to the EmailSenderService
-//        val intent = Intent(context, EmailSenderService::class.java)
-//        intent.putExtra("recipientEmails", recipientEmails.toTypedArray())
-//        val pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//
-//        val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-//        val triggerTime = SystemClock.elapsedRealtime() + 10000
-//        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime, pendingIntent)
 
 
     }
