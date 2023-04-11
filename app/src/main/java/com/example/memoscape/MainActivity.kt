@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Buat cek UI Activity lain ygyyyy
-        val intent = Intent(this@MainActivity, NoteActivity::class.java) // ubah ke nama file Activity masing"
+        val intent = Intent(this@MainActivity, HomeActivity::class.java) // ubah ke nama file Activity masing"
         startActivity(intent)
 
         // Create some sample notes
