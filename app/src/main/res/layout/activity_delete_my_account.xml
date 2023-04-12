@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".DeleteMyAccountActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_my_acc"
+        android:textStyle="bold"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/account_deletion_desc"
+        android:justificationMode="inter_word"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/type_to_confirm_delete_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_deletion_confirm"
+        android:textColor="@color/dark_grey"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/delete_confirm_edt"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:inputType="text"
+        android:labelFor="@+id/type_to_confirm_delete_tv"
+        android:hint="DELETE"
+        android:textColorHint="@android:color/transparent" />
+        
+    <Button
+        android:id="@+id/confirm_delete_acc_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="4dp"
+        android:text="@string/delete_my_acc"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:tint="@color/white"
+        app:backgroundTint="@null"
+        android:background="@drawable/red_button" />
+
+
+
+</LinearLayout>
