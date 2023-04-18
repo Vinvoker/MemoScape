@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "226617321510",
+    "project_id": "memoscape",
+    "storage_bucket": "memoscape.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226617321510:android:c9888398fe57a822bf9ee7",
+        "android_client_info": {
+          "package_name": "com.example.memoscape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226617321510-njttimhkeeaj9k0ka1014qnf212bg690.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.memoscape",
+            "certificate_hash": "d8291e999b1257709ca0a77e166ddecc3d8bb59b"
+          }
+        },
+        {
+          "client_id": "226617321510-87giaj3rs0i8aa3ea8gtggou022eq7u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3V7C6AK0_UaFVYb__ABkD_G71Wxs0N2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226617321510-6ea3d27nn411rt6mqtne0s39u20538ci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
