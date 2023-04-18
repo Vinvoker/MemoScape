@@ -17,11 +17,16 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:name=".DeleteMyAccountActivity"
+            android:exported="false" />
         <activity
-            android:name=".login_activity"
+            android:name=".SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NoteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
