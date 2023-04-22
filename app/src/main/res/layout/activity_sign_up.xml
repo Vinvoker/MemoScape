@@ -13,25 +13,16 @@
         android:id="@+id/sign_up_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="60dp"
+        android:paddingTop="40dp"
         android:text="@string/sign_up_title"
         android:textSize="40sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/sign_up_subtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_up_title"
-        android:paddingTop="10dp"
-        android:text="@string/sign_up_subtitle"
-        android:textSize="20sp" />
-
-    <TextView
         android:id="@+id/sign_up_tvemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_up_subtitle"
+        android:layout_below="@+id/sign_up_title"
         android:paddingTop="20dp"
         android:text="@string/email"
         android:textSize="20sp" />
@@ -84,11 +75,31 @@
         android:paddingTop="10dp"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/signup_tvusername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_password2"
+        android:paddingTop="20dp"
+        android:text="@string/username"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/input_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signup_tvusername"
+        android:backgroundTint="@color/black"
+        android:inputType="text"
+        android:paddingTop="10dp"
+        android:textSize="20sp" />
+
+
     <Button
         android:id="@+id/btn_sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/input_password2"
+        android:layout_below="@id/input_username"
         android:layout_marginTop="20dp"
         android:background="@drawable/grey_button"
         android:text="@string/sign_up_title"
