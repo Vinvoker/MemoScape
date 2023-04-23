@@ -23,24 +23,12 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
     private lateinit var emailUpdateSwitch: SwitchCompat
     private lateinit var changePasswordToDialogBtn: Button
     private lateinit var twoFAlayout: LinearLayout
-//    private lateinit var radioGroupTheme: RadioGroup
     private lateinit var logoutLayout: RelativeLayout
     private lateinit var deleteMyAccount: Button
 
     private val sharedPref by lazy {
         getSharedPreferences("email_notification_switch", MODE_PRIVATE)
     }
-
-//    private lateinit var autoCompleteTV: AutoCompleteTextView
-//    private lateinit var adapterItems: ArrayAdapter<String>
-//
-//    val item = arrayOf("Student", "Teacher", "Personal")
-
-    // COBAIN THEME
-    private lateinit var cobainSystemSettingTheme : Button
-    private lateinit var cobainLightTheme: Button
-    private lateinit var cobainDarkTheme: Button
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,60 +60,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
         deleteMyAccount = findViewById(R.id.delete_acc_btn)
         deleteMyAccount.setOnClickListener(this)
 
-        // about THEME Radio Group
-//        radioGroupTheme = findViewById(R.id.radio_group_theme)
-//        radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
-//            when (checkedId) {
-//                R.id.radio_light_system_setting -> {
-//                    Log.d("Theme", "Clicked SYSTEM SETTING Theme")
-//
-//                    lifecycleScope.launch(Dispatchers.Default) {
-//                        // Perform long-running operation here
-//                        runOnUiThread {
-//                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
-//                        }
-//                    }
-//                }
-//                R.id.radio_light_theme -> {
-//                    Log.d("Theme", "Clicked LIGHT Theme")
-//
-////                    lifecycleScope.launch(Dispatchers.Default) {
-////                        // Perform long-running operation here
-////                        runOnUiThread {
-//                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-////                        }
-////                    }
-//                }
-//                R.id.radio_dark_theme -> {
-//                    Log.d("Theme", "Clicked DARK Theme")
-//
-////                    lifecycleScope.launch(Dispatchers.Default) {
-////                        // Perform long-running operation here
-////                        runOnUiThread {
-//                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-////                        }
-////                    }
-//                }
-//            }
-//        }
-
-
-//        autoCompleteTV = findViewById(R.id.auto_complete_txt)
-//        adapterItems = ArrayAdapter(this@SettingActivity, R.layout.memoscape_for_list_item, item)
-//        autoCompleteTV.setAdapter(adapterItems)
-//        autoCompleteTV.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
-//            val selectedItem = adapterView.getItemAtPosition(i).toString()
-//            Toast.makeText(this, "Item: $selectedItem", Toast.LENGTH_SHORT).show()
-//        }
-
-        // COBAIN THEMES
-//        cobainSystemSettingTheme = findViewById(R.id.cobain_theme_system_setting_btn)
-//        cobainSystemSettingTheme.setOnClickListener(this)
-//        cobainLightTheme = findViewById(R.id.cobain_theme_light_btn)
-//        cobainLightTheme.setOnClickListener(this)
-//        cobainDarkTheme = findViewById(R.id.cobain_theme_dark_btn)
-//        cobainDarkTheme.setOnClickListener(this)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -133,26 +67,26 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.save_setting_menu -> {
-                // Save the settings and finish the activity
-                saveSettings()
-                finish()
-                true
-            }
-            android.R.id.home -> {
-                // Handle the up button by finishing the activity
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            R.id.save_setting_menu -> {
+//                // Save the settings and finish the activity
+//                saveSettings()
+//                finish()
+//                true
+//            }
+//            android.R.id.home -> {
+//                // Handle the up button by finishing the activity
+//                finish()
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
-    private fun saveSettings() {
-
-    }
+//    private fun saveSettings() {
+//
+//    }
 
     override fun onClick(v: View) {
         when (v.id) {
@@ -162,9 +96,7 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
 
                 val emailSender = EmailSender()
 
-                // Perform necessary actions based on the switch state
-                if (isChecked) {
-                    // Handle switch on
+                if (isChecked) { // Handle switch on
                     Log.d("Switcher","Switch is ON")
 
                     // The real code
@@ -175,8 +107,7 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                     val recipients =  emailSender.getAllRecipients().toString()
                     Log.d("Recipients +", recipients)
 
-                } else {
-                    // Handle switch off
+                } else { // Handle switch off
                     Log.d("Switcher","Switch is OFF")
 
                     // The real code
@@ -209,17 +140,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                 val intent = Intent(this@SettingActivity, DeleteMyAccountActivity::class.java)
                 startActivity(intent)
             }
-
-            // COBAIN THEMES
-//            R.id.cobain_theme_system_setting_btn -> {
-//                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
-//            }
-//            R.id.cobain_theme_light_btn -> {
-//                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-//            }
-//            R.id.cobain_theme_dark_btn -> {
-//                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-//            }
 
         }
 
