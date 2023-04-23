@@ -5,21 +5,16 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
+import java.sql.SQLException
+import java.sql.Statement
 
-class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswordDialogFragment.OnPasswordChangedListener {
+class SettingActivity : AppCompatActivity(), View.OnClickListener {
 
-//    private lateinit var toolbar: Toolbar
     private lateinit var emailUpdateSwitch: SwitchCompat
     private lateinit var changePasswordToDialogBtn: Button
     private lateinit var twoFAlayout: LinearLayout
@@ -27,26 +22,28 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
     private lateinit var deleteMyAccount: Button
 
     private val sharedPref by lazy {
-        getSharedPreferences("email_notification_switch", MODE_PRIVATE)
+        getSharedPreferences("email_notification_switcher", MODE_PRIVATE)
     }
+
+    private val dbConnection = DatabaseConnection()
+    private val connection = dbConnection.createConnection()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
-
-//        supportActionBar?.setTitle(resources.getString(R.string.notification_and_setting_title))
 
         supportActionBar?.apply {
             setTitle(resources.getString(R.string.notification_and_setting_title))
             setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this@SettingActivity, R.color.light_grey)))
         }
 
-//        toolbar = findViewById(R.id.toolbar)
-//        setSupportActionBar(toolbar)
-
         emailUpdateSwitch = findViewById(R.id.email_notification_switch)
-        emailUpdateSwitch.isChecked = sharedPref.getBoolean("email_update_switch_state", false)
+        emailUpdateSwitch.isChecked = CurrentUser.getGetUpdates()
+//        emailUpdateSwitch.isChecked = sharedPref.getBoolean("switch_state", false)
         emailUpdateSwitch.setOnClickListener(this)
+        emailUpdateSwitch.setOnCheckedChangeListener { _, isChecked ->
+            sharedPref.edit().putBoolean("switch_state", isChecked).apply()
+        }
 
         changePasswordToDialogBtn = findViewById(R.id.to_change_password_dialog_btn)
         changePasswordToDialogBtn.setOnClickListener(this)
@@ -60,33 +57,10 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
         deleteMyAccount = findViewById(R.id.delete_acc_btn)
         deleteMyAccount.setOnClickListener(this)
 
+        val recipients =  UpdatesEmailRecipients().getAllRecipients().toString()
+        Log.d("Recipients +", recipients)
+
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.setting_menu, menu)
-        return true
-    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            R.id.save_setting_menu -> {
-//                // Save the settings and finish the activity
-//                saveSettings()
-//                finish()
-//                true
-//            }
-//            android.R.id.home -> {
-//                // Handle the up button by finishing the activity
-//                finish()
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
-
-//    private fun saveSettings() {
-//
-//    }
 
     override fun onClick(v: View) {
         when (v.id) {
@@ -94,29 +68,29 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                 val switch = v as SwitchCompat
                 val isChecked = switch.isChecked
 
-                val emailSender = EmailSender()
+//                val recipientsEmail = UpdatesEmailRecipients()
 
                 if (isChecked) { // Handle switch on
                     Log.d("Switcher","Switch is ON")
 
-                    // The real code
-//                    recipients.add(User.email)
-                    emailSender.addRecipient("recipient1@example.com")
+                    addRecipientUpdateEmail(CurrentUser.getId())
 
-                    // Pengecekan
-                    val recipients =  emailSender.getAllRecipients().toString()
-                    Log.d("Recipients +", recipients)
+//                    recipientsEmail.addRecipient(CurrentUser.getEmail())
+//
+//                    // Pengecekan
+//                    val recipients =  recipientsEmail.getAllRecipients().toString()
+//                    Log.d("Recipients +", recipients)
 
                 } else { // Handle switch off
                     Log.d("Switcher","Switch is OFF")
 
-                    // The real code
-//                    recipients.remove(User.email)
-                    emailSender.removeRecipient("recipient1@example.com")
+                    removeRecipientUpdateEmail(CurrentUser.getId())
 
-                    // Pengecekan
-                    val recipients =  emailSender.getAllRecipients().toString()
-                    Log.d("Recipients +", recipients)
+//                    recipientsEmail.removeRecipient(CurrentUser.getEmail())
+//
+//                    // Pengecekan
+//                    val recipients =  recipientsEmail.getAllRecipients().toString()
+//                    Log.d("Recipients +", recipients)
 
                 }
 
@@ -134,19 +108,53 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
                 Log.d("MyTag", "Clicked the 2FA Layout")
             }
             R.id.logout_layout -> {
+                logout()
                 Log.d("Logout", "Clicked the Logout Layout")
             }
             R.id.delete_acc_btn -> {
                 val intent = Intent(this@SettingActivity, DeleteMyAccountActivity::class.java)
                 startActivity(intent)
             }
-
         }
-
     }
 
-    override fun onPasswordChanged(newPassword: String) {
-        TODO("Not yet implemented")
+    private fun addRecipientUpdateEmail(idUser: Int) {
+        val query = "UPDATE users SET get_updates=1 WHERE id=$idUser"
+
+        try {
+            val stmt: Statement = connection!!.createStatement()
+            stmt.executeUpdate(query)
+            Log.d("EmailUpdates", "ON - Success")
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            Log.d("EmailUpdates", "ON - FAILED")
+        }
     }
+
+    private fun removeRecipientUpdateEmail(idUser: Int) {
+        val query = "UPDATE users SET get_updates=0 WHERE id=$idUser"
+
+        try {
+            val stmt: Statement = connection!!.createStatement()
+            stmt.executeUpdate(query)
+            Log.d("EmailUpdates", "OFF - Success")
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            Log.d("EmailUpdates", "OFF - FAILED")
+        }
+    }
+
+    private fun logout() {
+        val auth = FirebaseAuth.getInstance()
+        auth.signOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
+//    override fun onPasswordChanged(newPassword: String) {
+//        TODO("Not yet implemented")
+//    }
 
 }

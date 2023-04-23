@@ -8,15 +8,6 @@
     tools:context=".SettingActivity"
     android:fitsSystemWindows="true">
 
-<!--    <androidx.appcompat.widget.Toolbar-->
-<!--        android:id="@+id/toolbar"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="?attr/actionBarSize"-->
-<!--        android:background="@color/light_grey"-->
-<!--        app:title="@string/notification_and_setting_title"-->
-<!--        app:menu="@menu/setting_menu"-->
-<!--        app:titleTextColor="@color/black"/>-->
-
     <TextView
         android:id="@+id/notifications_title"
         android:layout_width="wrap_content"

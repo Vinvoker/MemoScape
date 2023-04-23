@@ -33,7 +33,6 @@
     <string name="my_notifications">My notifications</string>
     <string name="email_notifications">Email notifications</string>
     <string name="receive_email_updates">Receive email updates</string>
-    <string name="switch_state_key">switch_state</string>
     <string name="my_settings">My settings</string>
     <string name="logout">Log Out</string>
     <string name="logout_description">Log out from MemoScape here</string>
