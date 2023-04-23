@@ -18,6 +18,7 @@ import com.example.memoscape.SettingActivity
 
 class HomeActivity : AppCompatActivity() {
 
+    private lateinit var titleTextView: EditText
     private lateinit var notesListView: ListView
     private lateinit var notesList: MutableList<Note>
 
@@ -27,11 +28,11 @@ class HomeActivity : AppCompatActivity() {
 
         // Find the UI elements by their IDs
         val titleTextView: TextView = findViewById(com.example.memoscape.R.id.title_textview)
-        val settingsButton: Button = findViewById(com.example.memoscape.R.id.settings_button)
+        val settingsImage: ImageView = findViewById(com.example.memoscape.R.id.settings_image)
         notesListView = findViewById(com.example.memoscape.R.id.notes_listview)
         val newNoteButton: Button = findViewById(com.example.memoscape.R.id.new_note_button)
 
-        settingsButton.setOnClickListener {
+        settingsImage.setOnClickListener {
             startActivity(Intent(this, SettingActivity::class.java))
         }
 
@@ -50,10 +51,19 @@ class HomeActivity : AppCompatActivity() {
         val adapter = NotesAdapter(this, notesList)
         notesListView.adapter = adapter
 
+        val title = titleTextView.text.toString()
+        //val content = contentTextView.text.toString()
+
         // Set up item click listener
         notesListView.setOnItemClickListener { _, _, position, _ ->
             val note = notesList[position]
-            showNoteDialog(note)
+
+            // Launch the NoteActivity and pass the selected note as an extra
+            val intent = Intent(this, NoteActivity::class.java).apply {
+                putExtra("title", title)
+                //putExtra("content", content)
+            }
+            startActivity(intent)
         }
     }
 
