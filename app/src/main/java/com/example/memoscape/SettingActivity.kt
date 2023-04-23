@@ -57,9 +57,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         deleteMyAccount = findViewById(R.id.delete_acc_btn)
         deleteMyAccount.setOnClickListener(this)
 
-        val recipients =  UpdatesEmailRecipients().getAllRecipients().toString()
-        Log.d("Recipients +", recipients)
-
     }
 
     override fun onClick(v: View) {
@@ -68,29 +65,15 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 val switch = v as SwitchCompat
                 val isChecked = switch.isChecked
 
-//                val recipientsEmail = UpdatesEmailRecipients()
-
                 if (isChecked) { // Handle switch on
                     Log.d("Switcher","Switch is ON")
 
                     addRecipientUpdateEmail(CurrentUser.getId())
 
-//                    recipientsEmail.addRecipient(CurrentUser.getEmail())
-//
-//                    // Pengecekan
-//                    val recipients =  recipientsEmail.getAllRecipients().toString()
-//                    Log.d("Recipients +", recipients)
-
                 } else { // Handle switch off
                     Log.d("Switcher","Switch is OFF")
 
                     removeRecipientUpdateEmail(CurrentUser.getId())
-
-//                    recipientsEmail.removeRecipient(CurrentUser.getEmail())
-//
-//                    // Pengecekan
-//                    val recipients =  recipientsEmail.getAllRecipients().toString()
-//                    Log.d("Recipients +", recipients)
 
                 }
 
@@ -152,9 +135,5 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(intent)
         finish()
     }
-
-//    override fun onPasswordChanged(newPassword: String) {
-//        TODO("Not yet implemented")
-//    }
 
 }

@@ -34,16 +34,6 @@ class ChangePasswordDialogFragment : DialogFragment() {
     private val dbConnection = DatabaseConnection()
     private val connection = dbConnection.createConnection()
 
-//    interface OnPasswordChangedListener {
-//        fun onPasswordChanged(newPassword: String)
-//    }
-//
-//    private lateinit var listener: OnPasswordChangedListener
-//
-//    fun setOnPasswordChangedListener(listener: OnPasswordChangedListener) {
-//        this.listener = listener
-//    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.fragment_change_password_dialog, null)
@@ -170,19 +160,5 @@ class ChangePasswordDialogFragment : DialogFragment() {
             false
         }
     }
-
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        try {
-//            listener = context as OnPasswordChangedListener
-//        } catch (e: ClassCastException) {
-//            throw ClassCastException("$context must implement ChangePasswordDialogListener")
-//        }
-//    }
-
-//    override fun onDetach() {
-//        super.onDetach()
-//        listener = null
-//    }
 
 }
