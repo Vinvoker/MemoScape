@@ -108,7 +108,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
                         // Check if old and new password same or not
                         if(oldPassword != newPassword) {
 
-                            val success = changePassword(1, newPassword)
+                            val success = changePassword(CurrentUser.getId(), newPassword)
 
                             if (success) {
                                 Toast.makeText(

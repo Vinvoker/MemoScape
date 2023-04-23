@@ -47,7 +47,7 @@ class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
 
                     if (isTextSame) {
 
-                        val success = deleteAccount(8)
+                        val success = deleteAccount(CurrentUser.getId())
 
                         if (success) {
                             Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT)
