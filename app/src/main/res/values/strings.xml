@@ -20,14 +20,13 @@
 
 <!--    Sign Up-->
     <string name="sign_up_title">Sign Up</string>
-    <string name="sign_up_subtitle">Please sign up to continue</string>
     <string name="email">Email</string>
     <string name="reenter_password">Re-enter Password</string>
     <string name="or">OR</string>
     <string name="sign_up_google">Continue with Google</string>
     <string name="have_an_account">Already have an account?</string>
-    <string name="log_in_here"><u>Log in here!</u>
-    </string>
+    <string name="log_in_here"><u>Log in here!</u></string>
+    <string name="username">Username</string>
 
     <!--    Setting-->
     <string name="notification_and_setting_title">Notifications &amp; settings</string>
