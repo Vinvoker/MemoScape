@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
         g_login = findViewById(R.id.google_auth)
         val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+//            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 

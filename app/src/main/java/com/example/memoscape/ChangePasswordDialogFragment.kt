@@ -105,7 +105,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
 //
 //                } else {
 
-                    // Cek if new password = repeat password
+                    // Chek if new password = repeat password
                     if (newPassword == repeatPassword) {
 
 

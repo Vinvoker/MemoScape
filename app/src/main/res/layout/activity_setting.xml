@@ -120,6 +120,8 @@
         android:layout_marginBottom="14dp"
         android:background="@drawable/line"/>
 
+
+
     <LinearLayout
         android:id="@+id/two_fa_layout"
         android:layout_width="match_parent"
@@ -142,80 +144,128 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/line"/>
 
-    <TextView
-        android:id="@+id/theme_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:text="@string/theme"
-        android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/theme_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="16dp" >
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="2dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="9dp"-->
+<!--        android:layout_marginBottom="14dp"-->
+<!--        android:background="@drawable/line"/>-->
 
-        <RadioGroup
-            android:id="@+id/radio_group_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal" >
+<!--    <TextView-->
+<!--        android:id="@+id/theme_title"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:text="@string/theme"-->
+<!--        android:textStyle="bold" />-->
 
-            <RadioButton
-                android:id="@+id/radio_light_system_setting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_btn_bg_selector"
-                android:button="@null"
-                android:checked="true"
-                android:gravity="center"
-                android:padding="5dp"
-                android:minHeight="48dp"
-                android:text="@string/system_setting_theme"
-                android:textColor="@drawable/theme_btn_textcolor_selector" />
+<!--    <Button-->
+<!--        android:id="@+id/cobain_theme_system_setting_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:paddingHorizontal="5dp"-->
+<!--        android:includeFontPadding="false"-->
+<!--        android:text="@string/system_setting_theme"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:tint="@color/white"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:background="@drawable/white_button" />-->
 
-            <RadioButton
-                android:id="@+id/radio_light_theme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_btn_bg_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:padding="5dp"
-                android:minHeight="48dp"
-                android:text="@string/light_theme"
-                android:textColor="@drawable/theme_btn_textcolor_selector" />
+<!--    <Button-->
+<!--        android:id="@+id/cobain_theme_light_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:paddingHorizontal="5dp"-->
+<!--        android:includeFontPadding="false"-->
+<!--        android:text="@string/light_theme"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:tint="@color/white"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:background="@drawable/white_button" />-->
 
-            <RadioButton
-                android:id="@+id/radio_dark_theme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/theme_btn_bg_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:padding="5dp"
-                android:minHeight="48dp"
-                android:text="@string/dark_theme"
-                android:textColor="@drawable/theme_btn_textcolor_selector" />
-        </RadioGroup>
+<!--    <Button-->
+<!--        android:id="@+id/cobain_theme_dark_btn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:layout_marginHorizontal="16dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:paddingHorizontal="5dp"-->
+<!--        android:includeFontPadding="false"-->
+<!--        android:text="@string/dark_theme"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:tint="@color/white"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:background="@drawable/white_button" />-->
 
-    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/theme_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:layout_marginHorizontal="16dp" >-->
+
+<!--        <RadioGroup-->
+<!--            android:id="@+id/radio_group_theme"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal" >-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radio_light_system_setting"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/theme_btn_bg_selector"-->
+<!--                android:button="@null"-->
+<!--                android:checked="true"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="5dp"-->
+<!--                android:minHeight="48dp"-->
+<!--                android:text="@string/system_setting_theme"-->
+<!--                android:textColor="@drawable/theme_btn_textcolor_selector" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radio_light_theme"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/theme_btn_bg_selector"-->
+<!--                android:button="@null"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="5dp"-->
+<!--                android:minHeight="48dp"-->
+<!--                android:text="@string/light_theme"-->
+<!--                android:textColor="@drawable/theme_btn_textcolor_selector" />-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/radio_dark_theme"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:background="@drawable/theme_btn_bg_selector"-->
+<!--                android:button="@null"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="5dp"-->
+<!--                android:minHeight="48dp"-->
+<!--                android:text="@string/dark_theme"-->
+<!--                android:textColor="@drawable/theme_btn_textcolor_selector" />-->
+<!--        </RadioGroup>-->
+
+<!--    </LinearLayout>-->
 
 <!--    <View-->
 <!--        android:layout_width="match_parent"-->
@@ -257,6 +307,45 @@
 <!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
     
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/line"/>
+
+    <RelativeLayout
+        android:id="@+id/logout_layout"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/logout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logout"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/logout_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logout_icon"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/logout_desc"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/logout_description" />-->
+
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

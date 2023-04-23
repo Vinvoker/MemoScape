@@ -23,7 +23,8 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
     private lateinit var emailUpdateSwitch: SwitchCompat
     private lateinit var changePasswordToDialogBtn: Button
     private lateinit var twoFAlayout: LinearLayout
-    private lateinit var radioGroupTheme: RadioGroup
+//    private lateinit var radioGroupTheme: RadioGroup
+    private lateinit var logoutLayout: RelativeLayout
     private lateinit var deleteMyAccount: Button
 
     private val sharedPref by lazy {
@@ -34,6 +35,11 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
 //    private lateinit var adapterItems: ArrayAdapter<String>
 //
 //    val item = arrayOf("Student", "Teacher", "Personal")
+
+    // COBAIN THEME
+    private lateinit var cobainSystemSettingTheme : Button
+    private lateinit var cobainLightTheme: Button
+    private lateinit var cobainDarkTheme: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,45 +66,48 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
         twoFAlayout = findViewById(R.id.two_fa_layout)
         twoFAlayout.setOnClickListener(this)
 
+        logoutLayout = findViewById(R.id.logout_layout)
+        logoutLayout.setOnClickListener(this)
+
         deleteMyAccount = findViewById(R.id.delete_acc_btn)
         deleteMyAccount.setOnClickListener(this)
 
         // about THEME Radio Group
-        radioGroupTheme = findViewById(R.id.radio_group_theme)
-        radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.radio_light_system_setting -> {
-                    Log.d("Theme", "Clicked SYSTEM SETTING Theme")
-
+//        radioGroupTheme = findViewById(R.id.radio_group_theme)
+//        radioGroupTheme.setOnCheckedChangeListener { _, checkedId ->
+//            when (checkedId) {
+//                R.id.radio_light_system_setting -> {
+//                    Log.d("Theme", "Clicked SYSTEM SETTING Theme")
+//
 //                    lifecycleScope.launch(Dispatchers.Default) {
 //                        // Perform long-running operation here
 //                        runOnUiThread {
-                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+//                    AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
 //                        }
 //                    }
-                }
-                R.id.radio_light_theme -> {
-                    Log.d("Theme", "Clicked LIGHT Theme")
-
-//                    lifecycleScope.launch(Dispatchers.Default) {
-//                        // Perform long-running operation here
-//                        runOnUiThread {
-                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
-//                        }
-//                    }
-                }
-                R.id.radio_dark_theme -> {
-                    Log.d("Theme", "Clicked DARK Theme")
-
-//                    lifecycleScope.launch(Dispatchers.Default) {
-//                        // Perform long-running operation here
-//                        runOnUiThread {
-                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
-//                        }
-//                    }
-                }
-            }
-        }
+//                }
+//                R.id.radio_light_theme -> {
+//                    Log.d("Theme", "Clicked LIGHT Theme")
+//
+////                    lifecycleScope.launch(Dispatchers.Default) {
+////                        // Perform long-running operation here
+////                        runOnUiThread {
+//                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+////                        }
+////                    }
+//                }
+//                R.id.radio_dark_theme -> {
+//                    Log.d("Theme", "Clicked DARK Theme")
+//
+////                    lifecycleScope.launch(Dispatchers.Default) {
+////                        // Perform long-running operation here
+////                        runOnUiThread {
+//                            AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+////                        }
+////                    }
+//                }
+//            }
+//        }
 
 
 //        autoCompleteTV = findViewById(R.id.auto_complete_txt)
@@ -108,6 +117,14 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
 //            val selectedItem = adapterView.getItemAtPosition(i).toString()
 //            Toast.makeText(this, "Item: $selectedItem", Toast.LENGTH_SHORT).show()
 //        }
+
+        // COBAIN THEMES
+//        cobainSystemSettingTheme = findViewById(R.id.cobain_theme_system_setting_btn)
+//        cobainSystemSettingTheme.setOnClickListener(this)
+//        cobainLightTheme = findViewById(R.id.cobain_theme_light_btn)
+//        cobainLightTheme.setOnClickListener(this)
+//        cobainDarkTheme = findViewById(R.id.cobain_theme_dark_btn)
+//        cobainDarkTheme.setOnClickListener(this)
 
     }
 
@@ -185,12 +202,26 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener, ChangePasswor
             R.id.two_fa_layout -> {
                 Log.d("MyTag", "Clicked the 2FA Layout")
             }
+            R.id.logout_layout -> {
+                Log.d("Logout", "Clicked the Logout Layout")
+            }
             R.id.delete_acc_btn -> {
                 val intent = Intent(this@SettingActivity, DeleteMyAccountActivity::class.java)
                 startActivity(intent)
             }
-        }
 
+            // COBAIN THEMES
+//            R.id.cobain_theme_system_setting_btn -> {
+//                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+//            }
+//            R.id.cobain_theme_light_btn -> {
+//                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
+//            }
+//            R.id.cobain_theme_dark_btn -> {
+//                AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+//            }
+
+        }
 
     }
 
