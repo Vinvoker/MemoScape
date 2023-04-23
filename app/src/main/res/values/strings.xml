@@ -34,19 +34,15 @@
     <string name="email_notifications">Email notifications</string>
     <string name="receive_email_updates">Receive email updates</string>
     <string name="my_settings">My settings</string>
+    <string name="logout">Log Out</string>
+    <string name="logout_description">Log out from MemoScape here</string>
     <string name="password">Password</string>
     <string name="change_password">Change Password</string>
     <string name="two_fa">Two-factor authentication</string>
     <string name="two_fa_details">Add extra security to your account</string>
-    <string name="theme">Theme</string>
-    <string name="system_setting_theme">System Setting</string>
-    <string name="light_theme">Light</string>
-    <string name="dark_theme">Dark</string>
     <string name="danger_zone">Danger Zone</string>
     <string name="delete_my_acc">Delete my account</string>
     <string name="save">Save</string>
-    <string name="using_memoscape_for_title">I am using MemoScape for</string>
-    <string name="select_a_journey">Select a journey</string>
 
     <!--    Change Password-->
     <string name="old_pass">Old Password</string>
