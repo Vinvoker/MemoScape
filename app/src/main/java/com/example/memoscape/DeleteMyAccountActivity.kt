@@ -7,11 +7,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import java.sql.SQLException
+import java.sql.Statement
 
 class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var confirmDeleteBtn: Button
     private lateinit var deleteConfirmEdt: EditText
+
+    private val dbConnection = DatabaseConnection()
+    private val connection = dbConnection.createConnection()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,29 +47,21 @@ class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
 
                     if (isTextSame) {
 
-                        // !!!!!!!!! connect with db
-//                        val db = MyDatabaseHelper(context)
-//                        val email = getterEmail
-//
-//                        val sqlDeleteAccount = "Delete FROM users WHERE email='$email'"
-//                        val success = db.executeNonQuery(sqlDeleteAccount)
-
-                        // FOR NOW ONLY
-                        val success = true
+                        val success = deleteAccount(8)
 
                         if (success) {
                             Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_SHORT)
                                 .show()
 
                             // Back to Login Activity
-                        val intent = Intent(this@DeleteMyAccountActivity, LoginActivity::class.java)
-                        startActivity(intent)
+                            val intent = Intent(this@DeleteMyAccountActivity, LoginActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
 
                         } else {
-                            Toast.makeText(this, "Something went wrong with sqlDelAcc", Toast.LENGTH_SHORT)
+                            Toast.makeText(this, "Account deleted FAILED", Toast.LENGTH_SHORT)
                                 .show()
                         }
-
 
                     } else {
                         Toast.makeText(this, "Text does not match with required word", Toast.LENGTH_SHORT)
@@ -76,5 +73,17 @@ class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun deleteAccount(idUser: Int): Boolean {
+        val query = "Delete FROM users WHERE id=$idUser"
+
+        return try {
+            val stmt: Statement = connection!!.createStatement()
+            stmt.executeUpdate(query)
+            true
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            false
+        }
+    }
 
 }
