@@ -68,7 +68,6 @@ class DeleteMyAccountActivity : AppCompatActivity(), View.OnClickListener {
                             .show()
                     }
                 }
-
             }
         }
     }

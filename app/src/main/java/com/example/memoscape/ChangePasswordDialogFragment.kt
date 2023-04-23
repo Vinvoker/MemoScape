@@ -95,7 +95,7 @@ class ChangePasswordDialogFragment : DialogFragment() {
             if(!isEmptyFields) {
 
                 // Check if old password correct
-                val realOldPassword = getOldPassword(1)
+                val realOldPassword = getOldPassword(CurrentUser.getId())
 
                 if(realOldPassword != oldPassword) {
                     Toast.makeText(context, "Old password wrong", Toast.LENGTH_SHORT).show()
