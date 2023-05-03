@@ -21,7 +21,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        // Find the UI elements by their IDs
         titleTextView = findViewById(R.id.title_textview)
         notesListView = findViewById(R.id.notes_listview)
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -43,18 +42,15 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Initialize the notes list
         notesList = mutableListOf(
             Note("Note 1", "This is the first note."),
             Note("Note 2", "This is the second note."),
             Note("Note 3", "This is the third note.")
         )
 
-        // Set up the ListView
         val adapter = NotesAdapter(this, notesList)
         notesListView.adapter = adapter
 
-        // Set up item click listener
         notesListView.setOnItemClickListener { _, _, position, _ ->
             val note = notesList[position]
 
@@ -87,13 +83,5 @@ class HomeActivity : AppCompatActivity() {
 
             return view
         }
-    }
-
-    private fun showNoteDialog(note: Note) {
-        // Show a dialog with the note details
-    }
-
-    private fun showNewNoteOptionsDialog() {
-        // Show a dialog to choose between creating a new text note or attaching an image
     }
 }
