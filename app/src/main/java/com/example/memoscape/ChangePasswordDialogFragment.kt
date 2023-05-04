@@ -135,7 +135,6 @@ class ChangePasswordDialogFragment : DialogFragment() {
             e.printStackTrace()
             return ""
         }
-        Log.d("Old_Pass", oldPassword)
         return oldPassword
     }
 

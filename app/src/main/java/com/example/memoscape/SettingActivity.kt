@@ -71,12 +71,10 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 val isChecked = switch.isChecked
 
                 if (isChecked) { // Handle switch on
-                    Log.d("EmailSwitcher","Switch is ON")
 
                     addRecipientUpdateEmail(CurrentUser.getId())
 
                 } else { // Handle switch off
-                    Log.d("EmailSwitcher","Switch is OFF")
 
                     removeRecipientUpdateEmail(CurrentUser.getId())
 
@@ -89,8 +87,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 editor.apply()
             }
             R.id.change_username_btn -> {
-                Log.d("Username", "Clicked Change Username button")
-
                 val usernameText = usernameEdt.text.toString()
 
                 var isEmptyFields = false
@@ -118,7 +114,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.logout_layout -> {
                 logout()
-                Log.d("Logout", "Clicked the Logout Layout")
             }
             R.id.delete_acc_btn -> {
                 val intent = Intent(this@SettingActivity, DeleteMyAccountActivity::class.java)
@@ -133,10 +128,8 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         try {
             val stmt: Statement = connection!!.createStatement()
             stmt.executeUpdate(query)
-            Log.d("EmailUpdates", "ON - Success")
         } catch (e: SQLException) {
             e.printStackTrace()
-            Log.d("EmailUpdates", "ON - FAILED")
         }
     }
 
@@ -146,10 +139,8 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         try {
             val stmt: Statement = connection!!.createStatement()
             stmt.executeUpdate(query)
-            Log.d("EmailUpdates", "OFF - Success")
         } catch (e: SQLException) {
             e.printStackTrace()
-            Log.d("EmailUpdates", "OFF - FAILED")
         }
     }
 
@@ -167,7 +158,6 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
             e.printStackTrace()
             return ""
         }
-        Log.d("Old_Username", oldUsername)
         return oldUsername
     }
 
@@ -177,10 +167,8 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         try {
             val stmt: Statement = connection!!.createStatement()
             stmt.executeUpdate(query)
-            Log.d("Username Updates", "Success")
         } catch (e: SQLException) {
             e.printStackTrace()
-            Log.d("Username Updates", "FAILED")
         }
     }
 
