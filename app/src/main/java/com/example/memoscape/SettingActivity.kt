@@ -1,27 +1,31 @@
 package com.example.memoscape
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
+
 
 class SettingActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var emailUpdateSwitch: SwitchCompat
     private lateinit var changePasswordToDialogBtn: Button
-    private lateinit var twoFAlayout: LinearLayout
     private lateinit var logoutLayout: RelativeLayout
     private lateinit var deleteMyAccount: Button
+    private lateinit var usernameEdt: EditText
+    private lateinit var changeUsername: ImageButton
 
-    private val sharedPref by lazy {
+    private val sharedPrefEmailUpdates by lazy {
         getSharedPreferences("email_notification_switcher", MODE_PRIVATE)
     }
 
@@ -42,20 +46,21 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
 //        emailUpdateSwitch.isChecked = sharedPref.getBoolean("switch_state", false)
         emailUpdateSwitch.setOnClickListener(this)
         emailUpdateSwitch.setOnCheckedChangeListener { _, isChecked ->
-            sharedPref.edit().putBoolean("switch_state", isChecked).apply()
+            sharedPrefEmailUpdates.edit().putBoolean("email_switch_state", isChecked).apply()
         }
-
         changePasswordToDialogBtn = findViewById(R.id.to_change_password_dialog_btn)
         changePasswordToDialogBtn.setOnClickListener(this)
-
-        twoFAlayout = findViewById(R.id.two_fa_layout)
-        twoFAlayout.setOnClickListener(this)
-
         logoutLayout = findViewById(R.id.logout_layout)
         logoutLayout.setOnClickListener(this)
 
         deleteMyAccount = findViewById(R.id.delete_acc_btn)
         deleteMyAccount.setOnClickListener(this)
+
+        usernameEdt = findViewById(R.id.username_edt)
+        usernameEdt.setText(CurrentUser.getUsername())
+
+        changeUsername = findViewById(R.id.change_username_btn)
+        changeUsername.setOnClickListener(this)
 
     }
 
@@ -66,12 +71,12 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 val isChecked = switch.isChecked
 
                 if (isChecked) { // Handle switch on
-                    Log.d("Switcher","Switch is ON")
+                    Log.d("EmailSwitcher","Switch is ON")
 
                     addRecipientUpdateEmail(CurrentUser.getId())
 
                 } else { // Handle switch off
-                    Log.d("Switcher","Switch is OFF")
+                    Log.d("EmailSwitcher","Switch is OFF")
 
                     removeRecipientUpdateEmail(CurrentUser.getId())
 
@@ -83,12 +88,33 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                 editor.putBoolean("email_notification", isChecked)
                 editor.apply()
             }
+            R.id.change_username_btn -> {
+                Log.d("Username", "Clicked Change Username button")
+
+                val usernameText = usernameEdt.text.toString()
+
+                var isEmptyFields = false
+
+                if(usernameText.isEmpty()) {
+                    isEmptyFields = true
+                    usernameEdt.error = "This field cannot be empty"
+                }
+
+                if(!isEmptyFields) {
+                    val oldUsername = getOldUsername(CurrentUser.getId())
+
+                    if(oldUsername == usernameText) {
+                        Toast.makeText(this, "Old and new username same", Toast.LENGTH_SHORT).show()
+                    } else {
+                        updateUsername(CurrentUser.getId(), usernameText)
+                        usernameEdt.setText(usernameText)
+                    }
+                }
+
+            }
             R.id.to_change_password_dialog_btn -> {
                 val dialog = ChangePasswordDialogFragment()
                 dialog.show(supportFragmentManager, "ChangePasswordDialogFragment")
-            }
-            R.id.two_fa_layout -> {
-                Log.d("MyTag", "Clicked the 2FA Layout")
             }
             R.id.logout_layout -> {
                 logout()
@@ -124,6 +150,37 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
         } catch (e: SQLException) {
             e.printStackTrace()
             Log.d("EmailUpdates", "OFF - FAILED")
+        }
+    }
+
+    private fun getOldUsername(idUser: Int): String {
+        val query = "SELECT username FROM users WHERE id=$idUser"
+        var oldUsername = ""
+        try {
+            val stmt: Statement = connection!!.createStatement()
+            val rs: ResultSet = stmt.executeQuery(query)
+
+            while (rs.next()) {
+                oldUsername = rs.getString("username")
+            }
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            return ""
+        }
+        Log.d("Old_Username", oldUsername)
+        return oldUsername
+    }
+
+    private fun updateUsername(idUser: Int, newUsername: String) {
+        val query = "UPDATE users SET username='$newUsername' WHERE id=$idUser"
+
+        try {
+            val stmt: Statement = connection!!.createStatement()
+            stmt.executeUpdate(query)
+            Log.d("Username Updates", "Success")
+        } catch (e: SQLException) {
+            e.printStackTrace()
+            Log.d("Username Updates", "FAILED")
         }
     }
 

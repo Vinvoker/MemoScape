@@ -6,7 +6,7 @@ object CurrentUser {
     private var email: String = "email@gmail.com"
     private var password: String = "password123"
     private var username: String = "memoscape_user"
-    private var photo_url: String = "https://"
+    private var photo_url: String = "https://upload.wikimedia.org/wikipedia/en/a/a9/MarioNSMBUDeluxe.png"
     private var get_updates: Boolean = false
 
     // Setter

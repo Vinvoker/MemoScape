@@ -79,6 +79,67 @@
         android:layout_marginBottom="14dp"
         android:background="@drawable/line"/>
 
+    <TextView
+            android:id="@+id/username_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            android:textStyle="bold"
+            android:layout_marginHorizontal="16dp"/>
+
+        <RelativeLayout
+            android:id="@+id/username_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+
+
+            <EditText
+                android:id="@+id/username_edt"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"/>
+
+            <ImageButton
+                android:id="@+id/change_username_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@null"
+                android:paddingVertical="8dp"
+                android:paddingLeft="20dp"
+                android:src="@drawable/save_icon" />
+
+            <!--            <Button-->
+<!--                android:id="@+id/change_username_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_marginLeft="30dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_toRightOf="@+id/username_edt"-->
+<!--                android:background="@drawable/white_button"-->
+<!--                android:includeFontPadding="false"-->
+<!--                android:paddingHorizontal="5dp"-->
+<!--                android:text="@string/change"-->
+<!--                android:textAllCaps="false"-->
+<!--                android:textColor="@color/black"-->
+<!--                app:backgroundTint="@null"-->
+<!--                app:tint="@color/white" />-->
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="14dp"
+            android:background="@drawable/line"/>
 
     <TextView
         android:id="@+id/password_title"
@@ -111,38 +172,6 @@
         android:layout_marginBottom="14dp"
         android:background="@drawable/line"/>
 
-
-
-    <LinearLayout
-        android:id="@+id/two_fa_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/two_fa_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/two_fa"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/two_fa_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/two_fa_details" />
-
-    </LinearLayout>
-    
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="14dp"
-        android:background="@drawable/line"/>
-
     <RelativeLayout
         android:id="@+id/logout_layout"
         android:layout_width="match_parent"
@@ -165,12 +194,6 @@
             android:src="@drawable/logout_icon"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
-
-<!--        <TextView-->
-<!--            android:id="@+id/logout_desc"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/logout_description" />-->
 
     </RelativeLayout>
 
