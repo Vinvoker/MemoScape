@@ -13,17 +13,27 @@
         android:id="@+id/sign_up_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="40dp"
+        android:paddingTop="60dp"
         android:text="@string/sign_up_title"
         android:textSize="40sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/sign_up_tvemail"
+        android:id="@+id/sign_up_subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sign_up_title"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp" />
+<!--         android:text="@string/sign_up_subtitle"-->
+<!--        android:textSize="20sp"-->
+<!--        android:textStyle="bold" />-->
+
+    <TextView
+        android:id="@+id/sign_up_tvemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up_subtitle"
+        android:paddingTop="30dp"
         android:text="@string/email"
         android:textSize="20sp" />
 
@@ -33,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/sign_up_tvemail"
         android:backgroundTint="@color/black"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:paddingTop="10dp"
         android:textSize="20sp" />
 
@@ -107,42 +117,11 @@
         android:textStyle="bold"
         app:backgroundTint="@null" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/btn_sign_up"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/grey_line" />
-
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_sign_up"
-        android:layout_centerInParent="true"
-        android:background="@color/white"
-        android:padding="10dp"
-        android:text="@string/or"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_google"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/or"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/white_button"
-        android:text="@string/sign_up_google"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:backgroundTint="@null" />
-
-
     <TextView
         android:id="@+id/have_an_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_google"
+        android:layout_below="@+id/btn_sign_up"
         android:layout_marginLeft="50dp"
         android:paddingTop="20dp"
         android:text="@string/have_an_account"
@@ -152,7 +131,7 @@
         android:id="@+id/log_in_here"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_google"
+        android:layout_below="@+id/btn_sign_up"
         android:layout_marginLeft="5dp"
         android:layout_toEndOf="@+id/have_an_account"
         android:paddingTop="20dp"

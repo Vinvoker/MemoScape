@@ -8,21 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var titleTextView: TextView
-    private lateinit var notesListView: ListView
-    private lateinit var notesList: MutableList<Note>
+    private lateinit var notesList: MutableList<CurrentUser.Note>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         titleTextView = findViewById(R.id.title_textview)
-        notesListView = findViewById(R.id.notes_listview)
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -42,46 +41,76 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        notesList = mutableListOf(
-            Note("Note 1", "This is the first note."),
-            Note("Note 2", "This is the second note."),
-            Note("Note 3", "This is the third note.")
-        )
+        val userId = CurrentUser.getId()
+        notesList = getNotesByUserId(userId)
 
+        val notesRecyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
+        notesRecyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = NotesAdapter(this, notesList)
-        notesListView.adapter = adapter
+        notesRecyclerView.adapter = adapter
 
-        notesListView.setOnItemClickListener { _, _, position, _ ->
-            val note = notesList[position]
-
-            // Launch the NoteActivity and pass the selected note as an extra
-            val intent = Intent(this, NoteActivity::class.java).apply {
-                putExtra("title", note.title)
-                putExtra("content", note.content)
+        adapter.setOnItemClickListener(object : NotesAdapter.OnItemClickListener {
+            override fun onItemClick(note: CurrentUser.Note) {
+                val intent = Intent(this@HomeActivity, NoteActivity::class.java).apply {
+                    putExtra("title", note.title)
+                    putExtra("content", note.content)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
-        }
+        })
     }
 
     data class Note(val title: String, val content: String)
 
-    class NotesAdapter(private val context: Context, private val notesList: MutableList<Note>) :
-        ArrayAdapter<Note>(context, R.layout.notes_list_item, notesList) {
+    class NotesAdapter(private val context: Context, private val notesList: List<CurrentUser.Note>) :
+        RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
 
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val view = convertView ?: LayoutInflater.from(context).inflate(
-                R.layout.notes_list_item, parent, false
-            )
+        private var itemClickListener: OnItemClickListener? = null
 
-            val note = notesList[position]
-
-            val titleTextView = view.findViewById<TextView>(R.id.note_title)
-            val contentTextView = view.findViewById<TextView>(R.id.note_content)
-
-            titleTextView.text = note.title
-            contentTextView.text = note.content
-
-            return view
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
+            val view = LayoutInflater.from(context).inflate(R.layout.notes_list_item, parent, false)
+            return NoteViewHolder(view)
         }
+        override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
+            val note = notesList[position]
+            holder.bind(note)
+
+            holder.itemView.setOnClickListener {
+                itemClickListener?.onItemClick(note)
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return notesList.size
+        }
+
+        fun setOnItemClickListener(listener: OnItemClickListener) {
+            itemClickListener = listener
+        }
+
+        interface OnItemClickListener {
+            fun onItemClick(note: CurrentUser.Note)
+        }
+
+        inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            private val titleTextView: TextView = itemView.findViewById(R.id.note_title)
+            private val contentTextView: TextView = itemView.findViewById(R.id.note_content)
+
+            fun bind(note: CurrentUser.Note) {
+                titleTextView.text = note.title
+                contentTextView.text = note.content
+            }
+        }
+    }
+
+    private fun getNotesByUserId(userId: Int): MutableList<CurrentUser.Note> {
+        val notesList: MutableList<CurrentUser.Note> = mutableListOf()
+        val currentUserNotes = CurrentUser.getNotesList()
+
+        for (note in currentUserNotes) {
+            notesList.add(note)
+        }
+
+        return notesList
     }
 }

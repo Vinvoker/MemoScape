@@ -8,6 +8,8 @@ object CurrentUser {
     private var username: String = "memoscape_user"
     private var photo_url: String = "https://upload.wikimedia.org/wikipedia/en/a/a9/MarioNSMBUDeluxe.png"
     private var get_updates: Boolean = false
+    private var notesList: MutableList<Note> = mutableListOf()
+
 
     // Setter
 
@@ -59,6 +61,24 @@ object CurrentUser {
 
     fun getGetUpdates(): Boolean {
         return this.get_updates
+    }
+
+    data class Note(val title: String, val content: String)
+
+    init {
+        notesList.add(Note("Note 1", "Content 1"))
+        notesList.add(Note("Note 2", "Content 2"))
+        notesList.add(Note("Note 3", "Content 3"))
+        notesList.add(Note("Note 4", "Content 4"))
+        notesList.add(Note("Note 5", "Content 5"))
+        notesList.add(Note("Note 6", "Content 6"))
+        notesList.add(Note("Note 7", "Content 7"))
+        notesList.add(Note("Note 8", "Content 8"))
+        notesList.add(Note("Note 9", "Content 9"))
+    }
+
+    fun getNotesList(): MutableList<Note> {
+        return notesList
     }
 
 }
