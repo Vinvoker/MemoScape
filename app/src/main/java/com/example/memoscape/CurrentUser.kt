@@ -1,8 +1,12 @@
 package com.example.memoscape
 
+import java.sql.ResultSet
+import java.sql.SQLException
+import java.sql.Statement
+
 object CurrentUser {
 
-    private var id: Int = 9
+    private var id: Int = 1
     private var email: String = "email@gmail.com"
     private var password: String = "password123"
     private var username: String = "memoscape_user"
@@ -63,18 +67,29 @@ object CurrentUser {
         return this.get_updates
     }
 
-    data class Note(val title: String, val content: String)
+    data class Note(val id: Int, var title: String, var content: String)
+
+    fun getNotes() {
+        val connection = DatabaseConnection().createConnection()
+        val query = "SELECT id, title, content FROM notes WHERE user_id= $id"
+        try {
+            val stmt: Statement = connection!!.createStatement()
+            val rs: ResultSet = stmt.executeQuery(query)
+
+            while (rs.next()) {
+                val id = rs.getInt("id")
+                val title = rs.getString("title")
+                val content = rs.getString("content")
+                val note = Note(id, title, content)
+                notesList.add(note)
+            }
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+    }
 
     init {
-        notesList.add(Note("Note 1", "Content 1"))
-        notesList.add(Note("Note 2", "Content 2"))
-        notesList.add(Note("Note 3", "Content 3"))
-        notesList.add(Note("Note 4", "Content 4"))
-        notesList.add(Note("Note 5", "Content 5"))
-        notesList.add(Note("Note 6", "Content 6"))
-        notesList.add(Note("Note 7", "Content 7"))
-        notesList.add(Note("Note 8", "Content 8"))
-        notesList.add(Note("Note 9", "Content 9"))
+        getNotes()
     }
 
     fun getNotesList(): MutableList<Note> {

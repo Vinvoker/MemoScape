@@ -1,5 +1,6 @@
 package com.example.memoscape
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var titleTextView: TextView
     private lateinit var notesList: MutableList<CurrentUser.Note>
+    private lateinit var adapter: NotesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,8 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.newnote -> {
-                    startActivity(Intent(this, NoteActivity::class.java))
+                    val intent = Intent(this, NoteActivity::class.java)
+                    editNoteActivityResult.launch(intent)
                     true
                 }
                 R.id.settings -> {
@@ -46,21 +50,20 @@ class HomeActivity : AppCompatActivity() {
 
         val notesRecyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
         notesRecyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = NotesAdapter(this, notesList)
+        adapter = NotesAdapter(this, notesList)
         notesRecyclerView.adapter = adapter
 
         adapter.setOnItemClickListener(object : NotesAdapter.OnItemClickListener {
             override fun onItemClick(note: CurrentUser.Note) {
                 val intent = Intent(this@HomeActivity, NoteActivity::class.java).apply {
+                    putExtra("id", note.id)
                     putExtra("title", note.title)
                     putExtra("content", note.content)
                 }
-                startActivity(intent)
+                editNoteActivityResult.launch(intent)
             }
         })
     }
-
-    data class Note(val title: String, val content: String)
 
     class NotesAdapter(private val context: Context, private val notesList: List<CurrentUser.Note>) :
         RecyclerView.Adapter<NotesAdapter.NoteViewHolder>() {
@@ -113,4 +116,26 @@ class HomeActivity : AppCompatActivity() {
 
         return notesList
     }
+
+    private val editNoteActivityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                // Handle the result data here
+                if (data != null) {
+                    val id = data.getIntExtra("id", -1)
+                    val title = data.getStringExtra("title")
+                    val content = data.getStringExtra("content")
+
+                    if (id != -1 && title != null && content != null) {
+                        // Update the corresponding note in your notesList using the id
+                        val note = notesList.find { it.id == id }
+                        note?.title = title
+                        note?.content = content
+
+                        adapter.notifyDataSetChanged() // Update the adapter with the modified note
+                    }
+                }
+            }
+        }
 }

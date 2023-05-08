@@ -7,7 +7,11 @@
         android:icon="@drawable/attach_icon"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_delete"
         android:title="Delete"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_save"
+        android:title="Save"
         app:showAsAction="never" />
 </menu>
