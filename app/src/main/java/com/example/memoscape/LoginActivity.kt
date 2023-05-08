@@ -3,10 +3,15 @@ package com.example.memoscape
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.memoscape.CurrentUser.setUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,6 +23,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
+import kotlin.math.sign
 
 class LoginActivity : AppCompatActivity(), OnClickListener {
 
@@ -34,12 +40,29 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.hide()
 
+        //Manual Login
         emailInput = findViewById(R.id.input_login_email)
         passInput = findViewById(R.id.input_login_password)
         login = findViewById(R.id.login_button)
 
-        login.setOnClickListener(this)
+        login.setOnClickListener {
+            val inputEmail: String = emailInput.text.toString()
+            val inputPassword: String = passInput.text.toString()
+
+            val successLogin: Boolean = findUser(inputEmail, inputPassword)
+
+            if (successLogin){
+                Toast.makeText(applicationContext, "Welcome!", Toast.LENGTH_SHORT).show()
+                navigateToHomeScreen()
+            } else {
+                Toast.makeText(applicationContext, "No Account Found!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        //clickable text view
+        //signupTextSpan()
 
         //google
         gLogin = findViewById(R.id.google_auth)
@@ -49,6 +72,10 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
             .build()
 
         client = GoogleSignIn.getClient(this, options)
+        gLogin.setOnClickListener{
+            val intent = client.signInIntent
+            startActivityForResult(intent, 10001)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,8 +83,19 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
 
         if(requestCode == 10001) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
             val account = task.getResult(ApiException::class.java)
             val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
+            val activeEmail = account.email.toString()
+            val activeUsername = account.displayName.toString()
+
+            val accountExist : Boolean = checkAccount(activeEmail)
+
+            if (!accountExist) {
+                createUser(activeEmail, "default", activeUsername)
+            }
+
             FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener {
                         task ->
@@ -72,6 +110,25 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
+    private fun checkAccount (email: String) : Boolean {
+        dbConnection = DatabaseConnection()
+        val connection = dbConnection.createConnection()
+        val query = "SELECT * FROM users WHERE email = '$email'"
+
+        try {
+            val stmt: Statement = connection!!.createStatement()
+            val rs: ResultSet = stmt.executeQuery(query)
+
+            if (rs.first() == false) { // No result ; Email tidak ada di database
+                return false
+            }
+
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+
+        return true
+    }
     private fun createUser(email: String, password: String, username: String) {
         dbConnection = DatabaseConnection()
         val connection = dbConnection.createConnection()
@@ -88,12 +145,13 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         }
     }
 
-    private fun findUser(email: String, password: String) : Boolean{
+    private fun findUser(email: String, password: String) : Boolean {
         dbConnection = DatabaseConnection()
         val connection = dbConnection.createConnection()
-        val query = "SELECT * FROM users WHERE email = $email AND password = $password "
 
-        lateinit var curUser : CurrentUser
+        val curUser = CurrentUser
+
+        val query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' "
 
         try {
             val stmt: Statement = connection!!.createStatement()
@@ -117,37 +175,32 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
 
         return true
     }
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.login_button -> {
-                val email = emailInput.text.toString().trim()
-                val password = passInput.text.toString().trim()
 
-                var isEmptyFields = false
-                if (email.isEmpty()) {
-                    isEmptyFields = true
-                    emailInput.error = "Field ini tidak boleh kosong"
-                }
-                if (password.isEmpty()) {
-                    isEmptyFields = true
-                    passInput.error = "Field ini tidak boleh kosong"
-                }
+//    private fun signupTextSpan() {
+//        val signUpLink: TextView = findViewById(R.id.signup_hyperlink)
+//        val spannableString = SpannableString(signUpLink.text.toString())
+//
+//        val clickableSpan = object: ClickableSpan() {
+//            override fun onClick(widget: View) {
+//                val i = Intent(this@LoginActivity, SignUpActivity::class.java)
+//                startActivity(i)
+//            }
+//        }
+//
+//        spannableString.setSpan(clickableSpan, 25, 36, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+//        signUpLink.text = spannableString
+//        signUpLink.movementMethod = LinkMovementMethod.getInstance()
+//    }
 
-                if (!isEmptyFields) {
-                    if (findUser(email, password)) {
-                        startActivity(Intent(this, HomeActivity::class.java))
-                    }
-                }
-            }
-            R.id.google_auth -> {
-                val intent = client.signInIntent
-                startActivityForResult(intent, 10001)
-
-            }
-            R.id.signup_hyperlink -> {
-                startActivity(Intent(this, SignUpActivity::class.java))
-            }
+    private fun navigateToHomeScreen(){
+        finish()
+        val i = Intent(this@LoginActivity, HomeActivity::class.java)
+        startActivity(intent)
     }
+
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
     }
+
 
 }
