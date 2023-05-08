@@ -75,37 +75,37 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, HomeActivity::class.java) // ubah ke nama file Activity masing"
         startActivity(intent)
 
-        // Create some sample notes
-        val note1 = Note("Note 1", "This is the content of note 1")
-        val note2 = Note("Note 2", "This is the content of note 2")
-        val note3 = Note("Note 3", "This is the content of note 3")
+//        // Create some sample notes
+//        val note1 = Note("Note 1", "This is the content of note 1")
+//        val note2 = Note("Note 2", "This is the content of note 2")
+//        val note3 = Note("Note 3", "This is the content of note 3")
+//
+//        // Add the notes to the list
+//        notesList.add(note1)
+//        notesList.add(note2)
+//        notesList.add(note3)
 
-        // Add the notes to the list
-        notesList.add(note1)
-        notesList.add(note2)
-        notesList.add(note3)
-
-        // Set up the RecyclerView
-        val notesRecyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
-        notesRecyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = NotesAdapter(notesList)
-        notesRecyclerView.adapter = adapter
-
-        // Set up item click listener
-        adapter.setOnItemClickListener(object : NotesAdapter.OnItemClickListener {
-            override fun onItemClick(position: Int) {
-                val note = notesList[position]
-                showNoteDialog(note)
-            }
-        })
-    }
-
-    // Show dialog with note details
-    private fun showNoteDialog(note: Note) {
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.note_layout)
-        dialog.findViewById<TextView>(R.id.note_title).text = note.title
-        dialog.findViewById<TextView>(R.id.note_content).text = note.content
-        dialog.show()
-    }
+//        // Set up the RecyclerView
+//        val notesRecyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
+//        notesRecyclerView.layoutManager = LinearLayoutManager(this)
+//        val adapter = NotesAdapter(notesList)
+//        notesRecyclerView.adapter = adapter
+//
+//        // Set up item click listener
+//        adapter.setOnItemClickListener(object : NotesAdapter.OnItemClickListener {
+//            override fun onItemClick(position: Int) {
+//                val note = notesList[position]
+//                showNoteDialog(note)
+//            }
+//        })
+ }
+//
+//    // Show dialog with note details
+//    private fun showNoteDialog(note: Note) {
+//        val dialog = Dialog(this)
+//        dialog.setContentView(R.layout.note_layout)
+//        dialog.findViewById<TextView>(R.id.note_title).text = note.title
+//        dialog.findViewById<TextView>(R.id.note_content).text = note.content
+//        dialog.show()
+//    }
 }
