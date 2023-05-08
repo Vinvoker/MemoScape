@@ -100,7 +100,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
                 .addOnCompleteListener {
                         task ->
                     if (task.isSuccessful) {
-                        val i = Intent(this, HomeActivity::class.java)
+                        val i = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(i)
 
                     } else {
