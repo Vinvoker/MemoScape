@@ -176,30 +176,22 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         return true
     }
 
-//    private fun signupTextSpan() {
-//        val signUpLink: TextView = findViewById(R.id.signup_hyperlink)
-//        val spannableString = SpannableString(signUpLink.text.toString())
-//
-//        val clickableSpan = object: ClickableSpan() {
-//            override fun onClick(widget: View) {
-//                val i = Intent(this@LoginActivity, SignUpActivity::class.java)
-//                startActivity(i)
-//            }
-//        }
-//
-//        spannableString.setSpan(clickableSpan, 25, 36, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-//        signUpLink.text = spannableString
-//        signUpLink.movementMethod = LinkMovementMethod.getInstance()
-//    }
+    private fun signupTextSpan() {
+        val signUpLink: TextView = findViewById(R.id.signup_hyperlink)
+
+        signUpLink.setOnClickListener{
+            val i = Intent(this@LoginActivity, SignUpActivity::class.java)
+            startActivity(i)
+        }
+    }
 
     private fun navigateToHomeScreen(){
-        finish()
         val i = Intent(this@LoginActivity, HomeActivity::class.java)
-        startActivity(intent)
+        startActivity(i)
     }
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+
     }
 
 
