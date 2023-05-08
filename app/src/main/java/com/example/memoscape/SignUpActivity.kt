@@ -1,11 +1,15 @@
 package com.example.memoscape
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 
 class SignUpActivity : AppCompatActivity(), OnClickListener {
     private lateinit var dbConnection: DatabaseConnection
@@ -15,6 +19,7 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
     private lateinit var inputPassword2: EditText
     private lateinit var inputUsername: EditText
     private lateinit var btnSignUp: Button
+    private lateinit var loginHere: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,12 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
         btnSignUp = findViewById(R.id.btn_sign_up)
 
         btnSignUp.setOnClickListener(this)
+        loginHere = findViewById(R.id.log_in_here)
+        loginHere.setOnClickListener{
+            val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onClick(v: View) {
@@ -39,6 +50,9 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
             if (email.isEmpty()) {
                 isEmptyFields = true
                 inputEmail.error = "Field ini tidak boleh kosong"
+            } else if (!isEmailValid(email)){
+                isEmptyFields = true
+                inputEmail.error = "Email tidak valid"
             }
             if (password.isEmpty()) {
                 isEmptyFields = true
@@ -58,6 +72,7 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
                     inputPassword2.error = "Password yang diberikan salah"
                 }else{
                     createUser(email, password, username)
+
                 }
             }
         }
@@ -75,6 +90,24 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
             executeUpdate()
             close()
 
+            showSuccessDialog()
+
         }
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun showSuccessDialog(){
+        val alertDialog = AlertDialog.Builder(this)
+        alertDialog.setTitle("Success")
+        alertDialog.setMessage("Sign up berhasil! Silahkan login kembali menggunakan akun baru anda!")
+        alertDialog.setPositiveButton("OK") { _, _ ->
+            val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        alertDialog.show()
     }
 }
