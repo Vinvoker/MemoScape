@@ -1,5 +1,7 @@
 package com.example.memoscape
 
+import android.os.Parcelable
+
 object CurrentUser {
 
     private var id: Int = 9
@@ -10,6 +12,15 @@ object CurrentUser {
     private var get_updates: Boolean = false
 
     // Setter
+
+    fun setUser(id: Int, email: String, password: String, username: String, photo_url: String, get_updates: Boolean) {
+        this.id = id
+        this.email = email
+        this.password = password
+        this.username = username
+        this.photo_url = photo_url
+        this.get_updates = get_updates
+    }
 
     fun setId(id: Int) {
         this.id = id
