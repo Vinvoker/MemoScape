@@ -104,6 +104,8 @@ object CurrentUser {
     }
 
     fun getNotesList(): MutableList<Note> {
+        notesList = mutableListOf()
+        getNotes()
         return notesList
     }
 

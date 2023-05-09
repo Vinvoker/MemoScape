@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val userId = CurrentUser.getId()
+        Log.d("user id", userId.toString())
         notesList = getNotesByUserId(userId)
 
         val notesRecyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
