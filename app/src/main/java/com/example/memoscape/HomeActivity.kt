@@ -28,9 +28,9 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         titleTextView = findViewById(R.id.title_textview)
-        titleTextView.setBackgroundColor(resources.getColor(R.color.light_grey))
+        titleTextView.setBackgroundColor(resources.getColor(R.color.off_white))
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        bottomNavigationView.setBackgroundColor(resources.getColor(R.color.light_grey))
+        bottomNavigationView.setBackgroundColor(resources.getColor(R.color.off_white))
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
