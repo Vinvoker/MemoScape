@@ -7,10 +7,9 @@ import android.text.Editable
 import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.StyleSpan
-import android.util.Log
+import android.text.style.UnderlineSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -67,6 +66,14 @@ class NoteActivity : AppCompatActivity() {
                 boldText(contentTextView)
                 true
             }
+            R.id.action_italic -> {
+                italicText(contentTextView)
+                true
+            }
+            R.id.action_underline -> {
+                underlineText(contentTextView)
+                true
+            }
             R.id.action_delete -> {
                 deleteNote()
                 true
@@ -79,85 +86,43 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
-    private fun getStyledContent(content: CharSequence): String {
-        val spannable = SpannableStringBuilder(content)
-        val spans = spannable.getSpans(0, spannable.length, StyleSpan::class.java)
-        for (span in spans) {
-            val start = spannable.getSpanStart(span)
-            val end = spannable.getSpanEnd(span)
-
-            Log.d("Span", "Start: $start, End: $end")
-        }
-
-        val styledContent = StringBuilder()
-        var currentIndex = 0
-
-        for (i in spans.indices) {
-            val start = spannable.getSpanStart(spans[i])
-            val end = spannable.getSpanEnd(spans[i])
-
-            if (currentIndex < start) {
-                // Append the plain text before the styled section
-                styledContent.append(content.subSequence(currentIndex, start))
-            }
-
-            // Append the styled section with the <b> tags
-            val styledText = content.subSequence(start, end)
-            styledContent.append("<b>$styledText</b>")
-
-            currentIndex = end
-            Log.d("styledcontentloop", styledContent.toString())
-        }
-
-        if (currentIndex < content.length) {
-            // Append the remaining plain text after the last styled section
-            styledContent.append(content.subSequence(currentIndex, content.length))
-        }
-        Log.d("styledcontent", styledContent.toString())
-
-        // Convert the styled content to HTML format
-        val styledContentHtml = HtmlCompat.toHtml(SpannableStringBuilder.valueOf(styledContent.toString()), HtmlCompat.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE)
-
-        return styledContentHtml
-    }
-
     private fun saveNote() {
+        val resultIntent = Intent()
         val title = titleTextView.text.toString()
         val content = contentTextView.text.toString()
-        val styledContent = getStyledContent(content)
-        Log.d("styledcontent", styledContent)
         val id = intent.getIntExtra("id", 0)
         val userId = CurrentUser.getId()
 
         if (id == 0) {
-            // Insert a new note
-            val insertQuery = "INSERT INTO notes (user_id, title, content) VALUES ('$userId', '$title', '$styledContent')"
-
+            val insertQuery = "INSERT INTO notes (user_id, title, content) VALUES ('$userId', '$title', '$content')"
             try {
                 val statement = connection!!.createStatement()
                 statement.executeUpdate(insertQuery)
-                // Handle any necessary exception handling
+
+                val selectLastInsertIdQuery = "SELECT LAST_INSERT_ID() as newId"
+                val result = statement.executeQuery(selectLastInsertIdQuery)
+
+                if (result.next()) {
+                    val newNoteId = result.getInt("newId")
+                    resultIntent.putExtra("newId", newNoteId)
+                }
             } catch (e: SQLException) {
                 e.printStackTrace()
-                // Handle the exception
             }
         } else {
-            val updateQuery = "UPDATE notes SET title='$title', content='$styledContent' WHERE id=$id"
+            val updateQuery = "UPDATE notes SET title='$title', content='$content' WHERE id=$id"
+            resultIntent.putExtra("id", id)
 
             try {
                 val statement = connection!!.createStatement()
                 statement.executeUpdate(updateQuery)
-                // Handle any necessary exception handling
             } catch (e: SQLException) {
                 e.printStackTrace()
-                // Handle the exception
             }
         }
 
-        val resultIntent = Intent()
-        resultIntent.putExtra("id", id)
         resultIntent.putExtra("title", title)
-        resultIntent.putExtra("content", styledContent)
+        resultIntent.putExtra("content", content)
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
     }
@@ -179,6 +144,41 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
+    private fun italicText(contentTextView: TextView) {
+        val selectedText = contentTextView.text?.subSequence(contentTextView.selectionStart, contentTextView.selectionEnd)
+        if (!selectedText.isNullOrBlank() && selectedText != titleTextView) {
+            val htmlString = "<i>${selectedText}</i>"
+            val spannedText: Spanned = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                Html.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            } else {
+                Html.fromHtml(htmlString)
+            }
+            val spannable = SpannableString(spannedText)
+            spannable.setSpan(StyleSpan(Typeface.ITALIC), 0, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            val editable = contentTextView.text as Editable
+            editable.replace(contentTextView.selectionStart, contentTextView.selectionEnd, spannable)
+        }
+    }
+
+    private fun underlineText(contentTextView: TextView) {
+        val selectedText = contentTextView.text?.subSequence(contentTextView.selectionStart, contentTextView.selectionEnd)
+        if (!selectedText.isNullOrBlank() && selectedText != titleTextView) {
+            val htmlString = "<u>${selectedText}</u>"
+            val spannedText: Spanned = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                Html.fromHtml(htmlString, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            } else {
+                Html.fromHtml(htmlString)
+            }
+            val spannable = SpannableString(spannedText)
+            spannable.setSpan(UnderlineSpan(), 0, spannable.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            val editable = contentTextView.text as Editable
+            editable.replace(contentTextView.selectionStart, contentTextView.selectionEnd, spannable)
+        }
+    }
+
+
     private fun deleteNote() {
         val id = intent.getIntExtra("id", 0)
         val deleteQuery = "DELETE FROM notes WHERE id=$id"
@@ -195,7 +195,6 @@ class NoteActivity : AppCompatActivity() {
             finish()
         } catch (e: SQLException) {
             e.printStackTrace()
-            // Handle the exception
         }
     }
 }

@@ -3,7 +3,6 @@ package com.example.memoscape
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -65,6 +63,8 @@ class HomeActivity : AppCompatActivity() {
                     putExtra("title", note.title)
                     putExtra("content", note.content)
                 }
+                Log.d("id", note.id.toString())
+                Log.d("title", note.title)
                 editNoteActivityResult.launch(intent)
             }
         })
@@ -126,37 +126,35 @@ class HomeActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val data: Intent? = result.data
-                // Handle the result data here
                 if (data != null) {
                     val id = data.getIntExtra("id", -1)
+                    val newId = data.getIntExtra("newId", 0)
                     val title = data.getStringExtra("title")
                     val content = data.getStringExtra("content")
                     val isDeleted = data.getBooleanExtra("isDeleted", false)
 
                     if (isDeleted) {
-                        // Remove the deleted note from the notesList
                         val deletedNote = notesList.find { it.id == id }
                         deletedNote?.let {
                             notesList.remove(it)
-                            adapter.notifyDataSetChanged() // Update the adapter with the modified notesList
+                            adapter.notifyDataSetChanged()
                         }
+
                     } else {
-                        if (id != -1 && title != null && content != null) {
-                            if (id == 0) {
-                                // Create a new note instance
-                                val newNote = CurrentUser.Note(id, title, content)
-                                // Add the new note to the notesList
+                        if (title != null && content != null) {
+                            if (id == -1 && newId != 0) {
+                                var newNote = CurrentUser.Note(newId, title, content)
                                 notesList.add(newNote)
-                            } else {
-                                // Update the corresponding note in your notesList using the id
+                            } else if (id != -1 && newId == 0) {
                                 val note = notesList.find { it.id == id }
                                 note?.title = title
                                 note?.content = content
                             }
-                            adapter.notifyDataSetChanged() // Update the adapter with the modified note
+                            adapter.notifyDataSetChanged()
                         }
                     }
                 }
+                adapter.notifyDataSetChanged()
             }
         }
 }
