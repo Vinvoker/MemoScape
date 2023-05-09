@@ -62,7 +62,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
         }
 
         //clickable text view
-        //signupTextSpan()
+        signupTextSpan()
 
         //google
         gLogin = findViewById(R.id.google_auth)
