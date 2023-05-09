@@ -102,8 +102,13 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
                     if(oldUsername == usernameText) {
                         Toast.makeText(this, "Old and new username same", Toast.LENGTH_SHORT).show()
                     } else {
-                        updateUsername(CurrentUser.getId(), usernameText)
-                        usernameEdt.setText(usernameText)
+                        val usernameExist = checkUsernameExist(usernameText)
+                        if(!usernameExist) {
+                            updateUsername(CurrentUser.getId(), usernameText)
+                            usernameEdt.setText(usernameText)
+                        } else {
+                            Toast.makeText(this, "Username sudah terdaftar", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
 
@@ -159,6 +164,22 @@ class SettingActivity : AppCompatActivity(), View.OnClickListener {
             return ""
         }
         return oldUsername
+    }
+
+    private fun checkUsernameExist(username: String): Boolean {
+        val connection = dbConnection.createConnection()
+        val query = "SELECT * FROM users WHERE username = ?"
+        val preparedStatement = connection?.prepareStatement(query)
+
+        preparedStatement?.apply {
+            setString(1, username)
+            val resultSet = executeQuery()
+            val isExist = resultSet.next()
+            close()
+
+            return isExist
+        }
+        return false
     }
 
     private fun updateUsername(idUser: Int, newUsername: String) {
