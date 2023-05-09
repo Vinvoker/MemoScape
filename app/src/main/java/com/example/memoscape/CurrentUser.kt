@@ -12,19 +12,17 @@ object CurrentUser {
     private var email: String = "email@gmail.com"
     private var password: String = "password123"
     private var username: String = "memoscape_user"
-    private var photo_url: String = "https://upload.wikimedia.org/wikipedia/en/a/a9/MarioNSMBUDeluxe.png"
     private var get_updates: Boolean = false
     private var notesList: MutableList<Note> = mutableListOf()
 
 
     // Setter
 
-    fun setUser(id: Int, email: String, password: String, username: String, photo_url: String, get_updates: Boolean) {
+    fun setUser(id: Int, email: String, password: String, username: String, get_updates: Boolean) {
         this.id = id
         this.email = email
         this.password = password
         this.username = username
-        this.photo_url = photo_url
         this.get_updates = get_updates
     }
 
@@ -44,9 +42,6 @@ object CurrentUser {
         this.username = username
     }
 
-    fun setPhotoUrl(photo_url: String) {
-        this.photo_url = photo_url
-    }
 
     fun setGetUpdates(get_updates: Boolean) {
         this.get_updates = get_updates
@@ -68,10 +63,6 @@ object CurrentUser {
 
     fun getUsername(): String {
         return this.username
-    }
-
-    fun getPhotoUrl(): String {
-        return this.photo_url
     }
 
     fun getGetUpdates(): Boolean {

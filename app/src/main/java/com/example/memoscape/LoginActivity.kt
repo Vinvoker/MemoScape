@@ -163,7 +163,6 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
                     rs.getString("email"),
                     rs.getString("password"),
                     rs.getString("username"),
-                    rs.getString("photo_url"),
                     rs.getBoolean("get_updates")
                 )
             } else {
