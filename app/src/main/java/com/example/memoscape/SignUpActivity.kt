@@ -1,6 +1,5 @@
 package com.example.memoscape
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -80,6 +79,19 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
     private fun createUser(email: String, password: String, username: String) {
         dbConnection = DatabaseConnection()
         val connection = dbConnection.createConnection()
+
+        // cek apakah email sudah ada
+        if (checkEmailExist(email)) {
+            inputEmail.error = "Email sudah terdaftar"
+            return
+        }
+
+        // cek apakah username sudah ada
+        if (checkUsernameExist(username)) {
+            inputUsername.error = "Username sudah terdaftar"
+            return
+        }
+
         val query = "INSERT INTO users (email, password, username) VALUES (?, ?, ?)"
         val preparedStatement = connection?.prepareStatement(query)
 
@@ -97,6 +109,40 @@ class SignUpActivity : AppCompatActivity(), OnClickListener {
 
     private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun checkEmailExist(email: String): Boolean {
+        dbConnection = DatabaseConnection()
+        val connection = dbConnection.createConnection()
+        val query = "SELECT * FROM users WHERE email = ?"
+        val preparedStatement = connection?.prepareStatement(query)
+
+        preparedStatement?.apply {
+            setString(1, email)
+            val resultSet = executeQuery()
+            val isExist = resultSet.next()
+            close()
+
+            return isExist
+        }
+        return false
+    }
+
+    private fun checkUsernameExist(username: String): Boolean {
+        dbConnection = DatabaseConnection()
+        val connection = dbConnection.createConnection()
+        val query = "SELECT * FROM users WHERE username = ?"
+        val preparedStatement = connection?.prepareStatement(query)
+
+        preparedStatement?.apply {
+            setString(1, username)
+            val resultSet = executeQuery()
+            val isExist = resultSet.next()
+            close()
+
+            return isExist
+        }
+        return false
     }
 
     private fun showSuccessDialog(){
