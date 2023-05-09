@@ -1,5 +1,7 @@
 package com.example.memoscape
 
+import android.os.Parcelable
+
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Statement
@@ -16,6 +18,15 @@ object CurrentUser {
 
 
     // Setter
+
+    fun setUser(id: Int, email: String, password: String, username: String, photo_url: String, get_updates: Boolean) {
+        this.id = id
+        this.email = email
+        this.password = password
+        this.username = username
+        this.photo_url = photo_url
+        this.get_updates = get_updates
+    }
 
     fun setId(id: Int) {
         this.id = id
