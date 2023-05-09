@@ -157,15 +157,18 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
             val stmt: Statement = connection!!.createStatement()
             val rs: ResultSet = stmt.executeQuery(query)
 
-            while (rs.next()) {
-                curUser.setUser (
+            if (rs.next()) {
+                curUser.setUser(
                     rs.getInt("id"),
                     rs.getString("email"),
-                    rs.getString("username"),
                     rs.getString("password"),
+                    rs.getString("username"),
                     rs.getString("photo_url"),
                     rs.getBoolean("get_updates")
                 )
+            } else {
+                // No matching user found
+                return false
             }
 
         } catch (e:SQLException) {

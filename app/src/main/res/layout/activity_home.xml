@@ -8,15 +8,18 @@
 
     <TextView
         android:id="@+id/title_textview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Memo Scape"
-        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"/>
 
     <FrameLayout
         android:id="@+id/frame_layout"
