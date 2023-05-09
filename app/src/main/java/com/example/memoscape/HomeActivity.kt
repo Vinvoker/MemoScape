@@ -51,7 +51,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
         val userId = CurrentUser.getId()
-        Log.d("user id", userId.toString())
         notesList = getNotesByUserId(userId)
 
         val notesRecyclerView = findViewById<RecyclerView>(R.id.notes_recycler_view)
@@ -132,14 +131,30 @@ class HomeActivity : AppCompatActivity() {
                     val id = data.getIntExtra("id", -1)
                     val title = data.getStringExtra("title")
                     val content = data.getStringExtra("content")
+                    val isDeleted = data.getBooleanExtra("isDeleted", false)
 
-                    if (id != -1 && title != null && content != null) {
-                        // Update the corresponding note in your notesList using the id
-                        val note = notesList.find { it.id == id }
-                        note?.title = title
-                        note?.content = content
-
-                        adapter.notifyDataSetChanged() // Update the adapter with the modified note
+                    if (isDeleted) {
+                        // Remove the deleted note from the notesList
+                        val deletedNote = notesList.find { it.id == id }
+                        deletedNote?.let {
+                            notesList.remove(it)
+                            adapter.notifyDataSetChanged() // Update the adapter with the modified notesList
+                        }
+                    } else {
+                        if (id != -1 && title != null && content != null) {
+                            if (id == 0) {
+                                // Create a new note instance
+                                val newNote = CurrentUser.Note(id, title, content)
+                                // Add the new note to the notesList
+                                notesList.add(newNote)
+                            } else {
+                                // Update the corresponding note in your notesList using the id
+                                val note = notesList.find { it.id == id }
+                                note?.title = title
+                                note?.content = content
+                            }
+                            adapter.notifyDataSetChanged() // Update the adapter with the modified note
+                        }
                     }
                 }
             }
