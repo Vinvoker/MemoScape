@@ -8,7 +8,7 @@ import java.sql.SQLException
 class DatabaseConnection{
 
     fun createConnection(): Connection? {
-        val url = "jdbc:mysql://10.0.2.2:4306/memoscape"
+        val url = "jdbc:mysql://10.0.2.2/memoscape"
         val user = "root"
         val password = ""
 

@@ -7,6 +7,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
@@ -81,45 +82,63 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 10001) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+        Log.d("ReqCode: ", requestCode.toString())
+        Log.d("resultCode: ", resultCode.toString())
 
-            val account = task.getResult(ApiException::class.java)
-            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            if (requestCode == 10001) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+                if (data != null) {
+                    val account = task.getResult(ApiException::class.java)
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
 
-            val activeEmail = account.email.toString()
-            val activeUsername = account.displayName.toString()
+                    Log.d("Message: ", account.idToken.toString())
 
-            val accountExist : Boolean = checkAccount(activeEmail)
+                    val activeEmail = account.email.toString()
+                    val activeUsername = account.displayName.toString()
 
-            if (!accountExist) {
-                createUser(activeEmail, "default", activeUsername)
+                    val accountExist: Boolean = checkAccount(activeEmail)
+
+                    if (!accountExist) {
+                        createUser(activeEmail, "default", activeUsername)
+                    }
+
+                    FirebaseAuth.getInstance().signInWithCredential(credential)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(this, "Welcome!", Toast.LENGTH_SHORT).show()
+                                val i = Intent(this@LoginActivity, HomeActivity::class.java)
+                                startActivity(i)
+
+                            } else {
+                                Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
+                }
             }
 
-            FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener {
-                        task ->
-                    if (task.isSuccessful) {
-                        val i = Intent(this@LoginActivity, HomeActivity::class.java)
-                        startActivity(i)
-
-                    } else {
-                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }
     }
 
     private fun checkAccount (email: String) : Boolean {
         dbConnection = DatabaseConnection()
         val connection = dbConnection.createConnection()
         val query = "SELECT * FROM users WHERE email = '$email'"
+        val curUser = CurrentUser
 
         try {
             val stmt: Statement = connection!!.createStatement()
             val rs: ResultSet = stmt.executeQuery(query)
 
-            if (rs.first() == false) { // No result ; Email tidak ada di database
+            if (rs.next()) {
+                curUser.setUser(
+                    rs.getInt("id"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("username"),
+                    rs.getBoolean("get_updates")
+                )
+            } else {
+                // No matching user found
                 return false
             }
 
@@ -151,7 +170,7 @@ class LoginActivity : AppCompatActivity(), OnClickListener {
 
         val curUser = CurrentUser
 
-        val query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' "
+        val query = "SELECT * FROM users WHERE BINARY email = '$email' AND BINARY password = '$password' "
 
         try {
             val stmt: Statement = connection!!.createStatement()
